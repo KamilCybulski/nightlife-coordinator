@@ -1,0 +1,68 @@
+{
+  "name": "nightlife-coordinator",
+  "version": "1.0.0",
+  "description": "Nightlife coordinator app for fcc backend cert",
+  "main": "index.js",
+  "engines": {
+    "node": "8.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && nodemon index.js",
+    "dev:client": "webpack-dev-server --config ./webpack.config.dev.client.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KamilCybulski/nightlife-coordinator.git"
+  },
+  "author": "kamyl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KamilCybulski/nightlife-coordinator/issues"
+  },
+  "homepage": "https://github.com/KamilCybulski/nightlife-coordinator#readme",
+  "dependencies": {
+    "axios": "0.16.2",
+    "express": "4.15.4",
+    "material-ui": "0.19.2",
+    "mongodb": "2.2.31",
+    "prop-types": "15.5.10",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-redux": "5.0.6",
+    "react-router-dom": "4.2.2",
+    "react-tap-event-plugin": "2.0.1",
+    "redux": "3.7.2"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.0.0",
+    "babel-jest": "21.0.2",
+    "babel-loader": "7.1.2",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.6.0",
+    "babel-preset-react": "6.24.1",
+    "concurrently": "3.5.0",
+    "css-loader": "0.28.7",
+    "enzyme": "2.9.1",
+    "eslint": "4.7.2",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.3.0",
+    "html-webpack-plugin": "2.30.1",
+    "jest": "21.1.0",
+    "node-sass": "4.5.3",
+    "nodemon": "1.12.1",
+    "react-hot-loader": "3.0.0-beta.6",
+    "react-test-renderer": "15.6.1",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.18.2",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.8.2"
+  }
+}
