@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home = () => (
-  <div>This is Home page</div>
+  <div>W szczebrzeszynie chrząszcz brzmi w trzcinie</div>
 );
 
 export default Home;
