@@ -4,8 +4,10 @@ const config = require('../config/config');
 
 const getYelpToken = require('./lib/get-yelp-token');
 
+const staticFile = express.static('client/build/');
 const app = express();
-app.use(express.static('build/public/'));
+app.use(staticFile);
+
 
 let yelpToken;
 
@@ -24,8 +26,8 @@ app.get('/api/places', async (req, res) => {
 });
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 app.listen(config.PORT, () => {

@@ -1,23 +1,32 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: path.join(__dirname, '/client/index.html'),
-  fielname: 'index.html',
+  filename: 'index.html',
   inject: 'body',
 });
 
-module.exports = {
-  devtool: 'inline-source-map',
-  devServer: {
-    host: 'localhost',
-    port: '3000',
-    proxy: { '/api': 'http://localhost:3001' },
-    hot: true,
-    historyApiFallback: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
+const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
+  beautify: false,
+  mangle: {
+    screw_ie8: true,
   },
+  compress: {
+    screw_ie8: true,
+  },
+  comments: false,
+});
+
+const DefinePluginConfig = new webpack.DefinePlugin({
+  'process.env': { NODE_ENV: JSON.stringify('production') },
+});
+
+const CleanWebpackPluginConfig = new CleanWebpackPlugin(['./client/build']);
+
+module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
@@ -45,7 +54,8 @@ module.exports = {
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
+    UglifyJsPluginConfig,
+    DefinePluginConfig,
+    CleanWebpackPluginConfig,
   ],
 };
