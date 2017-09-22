@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Nightlife coordinator app for fcc backend cert",
   "main": "index.js",
+  "engines": {
+    "node": "8.0.0"
+  },
   "scripts": {
     "heroku-postbuild": "npm run build",
     "start": "node server/build/server.js",

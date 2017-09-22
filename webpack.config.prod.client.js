@@ -21,8 +21,7 @@ const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
 });
 
 const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env': { NODE_ENV: JSON.stringify('production') },
-});
+  'process.env.NODE_ENV': JSON.stringify('production') });
 
 const CleanWebpackPluginConfig = new CleanWebpackPlugin(['./client/build']);
 
