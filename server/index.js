@@ -1,19 +1,20 @@
 const express = require('express');
 const path = require('path');
-const config = require('../config/config');
 
 const getYelpToken = require('./lib/get-yelp-token');
 
 const staticFile = express.static('client/build/');
 const app = express();
-const PORT = process.env.PORT || config.PORT;
+const PORT = process.env.PORT || 3001;
 app.use(staticFile);
 
 
 let yelpToken;
 
 app.get('/api/places', async (req, res) => {
-  const token = yelpToken || await getYelpToken(config.yelpID, config.yelpSecret);
+  const id = process.env.YELP_CLIENT_ID;
+  const secret = process.env.YELP_CLIENT_SECRET;
+  const token = yelpToken || await getYelpToken(id, secret);
 
   if (!yelpToken) {
     yelpToken = token;
