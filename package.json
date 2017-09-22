@@ -7,6 +7,8 @@
     "node": "8.0.0"
   },
   "scripts": {
+    "heroku-postbuild": "npm run build",
+    "start": "node server/build/server.js",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "cd server && nodemon index.js",
     "dev:client": "webpack-dev-server --config ./webpack.config.dev.client.js",

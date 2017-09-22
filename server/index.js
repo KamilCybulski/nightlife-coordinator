@@ -6,6 +6,7 @@ const getYelpToken = require('./lib/get-yelp-token');
 
 const staticFile = express.static('client/build/');
 const app = express();
+const PORT = process.env.PORT || config.PORT;
 app.use(staticFile);
 
 
@@ -30,6 +31,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.listen(config.PORT, () => {
-  console.log(`Server listening on port ${config.PORT}. Press CTRL + C to terminate`);
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}. Press CTRL + C to terminate`);
 });
