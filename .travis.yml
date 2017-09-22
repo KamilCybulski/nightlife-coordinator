@@ -4,6 +4,6 @@ node_js:
 before_script: npm run test
 deploy:
   provider: heroku
-  app: kc-ruthless-pantocrator
+  app: ruthless-pantocrator
   api_key:
     secure: BGq6mMOYgfl40ZwcV8H7hTMm+wZGImGinkZRlnMAQIzRE3Rk2WYawZ+h0kr02veAEXkADO0F7fFuCkbMlNiyFV0QK5L2YiK7glM5Yy6IBRDsoNt9v6Dk/ED+jpUc4r/y6M05HuqbO50ZvvVf2vaARoA1vCb6LAFcGDyApwbDcX1U6lLCJSr+rmrJ8v4rBpTNvQkD8WbazerlLJUeUt+0mkaUKN9vVSzsCIC1S76rxCCyEUMxBdDVMkeCjjYNDkWWSiBsbPa0IyZpU2nS2s13IomFTOWNwP/z1DKIbDykKT69ITY02Rhkd1+wpzREepG2H6q9ikURkJ0e/fgr8zbuh1fE+TPmFBGurjVaSlQ+nauYrny6SLQu4V7zKpAkqPpeArArzB/hlWtLZHXXmpSMUqg6rLYDjFg54vUW6axHl/xBFiOA0/U/mmuS1jWVn727H/7BU7N1nZbnYwlxI5hp4Io6jLsJGV0SWcbv9/kwA4hxsDLa13zlVNpuYhjJ7TpKFiRJF49kc74zdVoJAnclSUP5rHd/k5xhkf+zEZifSEX21xqCU/S/EDn9UqDBN9V8Fr2UH/hhU0SAoi2uJ8G/owhm2ZwORQyygTTY/EkJbpTTgoVjMzzVDnehI+oUzGvC3YXDX2GYy/ono8xie27GY07pfi8/hxsGWuFHbWBBURk=
