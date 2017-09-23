@@ -3,6 +3,10 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 
 const getYelpToken = require('./lib/get-yelp-token');
+const getBars = require('./lib/get-bars');
+const getAttendants = require('./lib/get-attendants');
+const insertAttendants = require('./lib/insert-attendants');
+const arrayToObject = require('./lib/array-to-object');
 
 // Express setup
 const staticFile = express.static('client/build/');
@@ -24,17 +28,21 @@ MongoClient.connect(process.env.NIGHTLIFE_DB_URI, (err, database) => {
 
 
 // Api routes
-app.get('/api/places', async (req, res) => {
+app.get('/api/bars', async (req, res) => {
   const id = process.env.YELP_CLIENT_ID;
   const secret = process.env.YELP_CLIENT_SECRET;
   const token = yelpToken || await getYelpToken(id, secret);
 
-  if (!yelpToken) {
+  if (!yelpToken && token) {
     yelpToken = token;
   }
 
   if (token) {
-    res.json({ token });
+    const bars = await getBars(token, 'Warsaw');
+    const attendantsArr = await getAttendants(bars, db);
+    const attendantsObj = arrayToObject(attendantsArr);
+    const data = insertAttendants(bars, attendantsObj);
+    res.json({ data });
   } else {
     res.json({ error: 'No yelp token' });
   }
