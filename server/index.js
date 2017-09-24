@@ -29,23 +29,24 @@ MongoClient.connect(process.env.NIGHTLIFE_DB_URI, (err, database) => {
 
 // Api routes
 app.get('/api/bars', async (req, res) => {
+  if (!req.query.location) return res.json({ error: 'No location specified' });
+
   const id = process.env.YELP_CLIENT_ID;
   const secret = process.env.YELP_CLIENT_SECRET;
   const token = yelpToken || await getYelpToken(id, secret);
 
-  if (!yelpToken && token) {
-    yelpToken = token;
-  }
+  if (!yelpToken && token) yelpToken = token;
 
-  if (token) {
-    const bars = await getBars(token, 'Warsaw');
-    const attendantsArr = await getAttendants(bars, db);
-    const attendantsObj = arrayToObject(attendantsArr);
-    const data = insertAttendants(bars, attendantsObj);
-    res.json({ data });
-  } else {
-    res.json({ error: 'No yelp token' });
-  }
+  if (!token) return res.json({ error: 'No yelp token' });
+
+  const bars = await getBars(token, req.query.location);
+  if (!bars) return res.json({ error: 'Cannot connect to yelp API' });
+
+  const attendantsArr = await getAttendants(bars, db);
+  if (!attendantsArr) return res.json({ error: 'Cannot connect to the DB' });
+
+  const data = insertAttendants(bars, arrayToObject(attendantsArr));
+  return res.json({ data });
 });
 
 app.get('/api/test', async (req, res) => {

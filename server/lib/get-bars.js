@@ -11,5 +11,5 @@ module.exports = (token, location) => {
 
   return axios(options)
     .then(res => res.data.businesses)
-    .catch(err => err.message);
+    .catch(() => null);
 };
