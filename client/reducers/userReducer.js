@@ -1,11 +1,18 @@
-const userReducer = (state = {}, action) => {
+const initialState = {
+  loggedIn: false,
+  name: '',
+  email: '',
+};
+
+const userReducer = (state = initialState, action) => {
   let newState;
 
   switch (action.type) {
     case 'LOG_IN':
       newState = {
-        ...state,
-        user: action.payload,
+        loggedIn: true,
+        name: action.payload.name,
+        email: action.payload.email,
       };
       break;
 

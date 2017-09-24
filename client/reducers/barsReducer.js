@@ -1,4 +1,8 @@
-const barsReducer = (state = {}, action) => {
+const initialState = {
+  bars: [],
+};
+
+const barsReducer = (state = initialState, action) => {
   let newState;
 
   switch (action.type) {
