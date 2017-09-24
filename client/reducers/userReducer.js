@@ -1,7 +1,8 @@
 const initialState = {
-  loggedIn: false,
+  isLoggedIn: false,
   name: '',
   email: '',
+  location: undefined,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -10,9 +11,10 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOG_IN':
       newState = {
-        loggedIn: true,
+        isLoggedIn: true,
         name: action.payload.name,
         email: action.payload.email,
+        location: action.payload.location,
       };
       break;
 
