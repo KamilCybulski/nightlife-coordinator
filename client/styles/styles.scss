@@ -1,1 +1,31 @@
 @import 'reset.scss';
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/*==================================================
+                      Dimensions
+==================================================*/
+.fullwidth {
+  width: 100vw;
+}
+
+
+/*==================================================
+                      Layout
+==================================================*/
+.center-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
