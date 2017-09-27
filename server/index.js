@@ -88,6 +88,18 @@ app.post('/api/login', passport.authenticate('local'), (req, res) => {
   });
 });
 
+app.get('/api/auth', (req, res) => {
+  if (req.user) {
+    res.json({
+      username: req.user.username,
+      email: req.user.email,
+      location: req.user.location,
+    });
+  } else {
+    res.status(401).send({ msg: 'No user logged in' });
+  }
+});
+
 
 // Send the main html file
 app.get('/*', (req, res) => {
