@@ -52,6 +52,14 @@ class Signup extends React.Component {
    * @returns {object} React element
    */
   render() {
+    if (this.props.userLoggedIn) {
+      return (
+        <div className="fullwidth center-items">
+          You are already logged in.
+        </div>
+      );
+    }
+
     return (
       <div className="fullwitdh flex-column">
         <TextField
@@ -78,4 +86,12 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+Signup.propTypes = {
+  userLoggedIn: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+  userLoggedIn: state.user.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Signup);

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
+// TODO : Might be worth to refactor this stuff into 1 component!
+
 const NavButtons = ({ username }) => {
   if (username) {
     return (
