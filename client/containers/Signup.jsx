@@ -65,12 +65,12 @@ class Signup extends React.Component {
   }
 
   /**
-   * signUpUser
+   * sendData
    * Sends data for registering a new user to the server;
    * Updates the redux state (logs user in) after recieving a response
    * @returns {undefined}
    */
-  signUp = () => {
+  sendData = () => {
     const { username, email, password } = this.state;
     axios.post('/api/signup', { username, email, password })
       .then((res) => {
@@ -115,7 +115,7 @@ class Signup extends React.Component {
         <RaisedButton
           label="Sign up!"
           primary
-          onClick={this.signUp}
+          onClick={this.sendData}
         />
       </div>
     );
