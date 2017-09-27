@@ -1,21 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
-const navButtons = (
-  <div>
-    <Link to="/"><FlatButton label="Home" /></Link>
-    <Link to="/login"><FlatButton label="Log In" /></Link>
-    <Link to="/signup"><FlatButton label="Sign Up" /></Link>
-  </div>
-);
+const NavButtons = ({ username }) => {
+  if (username) {
+    return (
+      <div>
+        Hello {username}!
+        <Link to="/"><FlatButton label="Home" /></Link>
+        <FlatButton label="Logout" />
+      </div>
+    );
+  }
 
-const Nav = () => (
+  return (
+    <div>
+      <Link to="/"><FlatButton label="Home" /></Link>
+      <Link to="/login"><FlatButton label="Login" /></Link>
+      <Link to="/signup"><FlatButton label="Signup" /></Link>
+    </div>
+  );
+};
+
+NavButtons.propTypes = {
+  username: PropTypes.string.isRequired,
+};
+
+const Nav = props => (
   <AppBar
     showMenuIconButton={false}
-    iconElementRight={navButtons}
+    iconElementRight={<NavButtons username={props.user.name} />}
   />
 );
 
-export default Nav;
+Nav.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const mapPropsToState = state => ({ user: state.user });
+
+export default connect(mapPropsToState)(Nav);
