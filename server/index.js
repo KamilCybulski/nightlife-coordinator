@@ -52,9 +52,16 @@ app.get('/api/bars', async (req, res) => {
 });
 
 app.post('/api/signup', (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  res.json({ username, email, location: 'warsaw' });
+  const { username, email, password } = req.body;
+  // Just temporary setup. When doing authentication,
+  // send only username, email and location
+  res.json({ username, email, password, location: 'warsaw' });
+});
+
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  // Temporary setup. Remove password when doing authentication
+  res.json({ username, password, email: 'placeholder', location: 'warsaw' });
 });
 
 

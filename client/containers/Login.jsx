@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -22,6 +23,15 @@ class Login extends React.Component {
   }
 
   /**
+   * resetForm
+   * Clear all the textfields
+   * @returns {undefined}
+   */
+  resetForm = () => {
+    this.setState({ username: '', password: '' });
+  }
+
+  /**
    * handlePasswordChange
    * @param {object} e Keyboard event object
    * Synchronise the values of this.state.password and password textfield
@@ -39,6 +49,22 @@ class Login extends React.Component {
    */
   handleUsernameChange = (e) => {
     this.setState({ username: e.target.value });
+  }
+
+  /**
+   * sendData
+   * Sends data required for authentication to the server
+   * @returns {undefined}
+   */
+  sendData = () => {
+    axios.post('/api/login', this.state)
+      .then((res) => {
+        this.props.logIn(res.data.username, res.data.email, res.data.location);
+        this.resetForm();
+      })
+      .catch(() => {
+        this.resetForm();
+      });
   }
 
   /**
@@ -68,9 +94,7 @@ class Login extends React.Component {
         <RaisedButton
           label="Log in!"
           primary
-          onClick={() => {
-            this.props.logIn('Janek', 'human@fromhell.stuff', 'wroclaw');
-          }}
+          onClick={this.sendData}
         />
       </div>
     );
