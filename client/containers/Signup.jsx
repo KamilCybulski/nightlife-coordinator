@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+
+import logUserIn from '../actions/user-actions';
 
 class Signup extends React.Component {
   /**
@@ -16,6 +19,19 @@ class Signup extends React.Component {
       email: '',
       password: '',
     };
+  }
+
+  /**
+   * resetForm
+   * Clears all the textfields
+   * @returns {undefined}
+   */
+  resetForm = () => {
+    this.setState({
+      username: '',
+      email: '',
+      password: '',
+    });
   }
 
   /**
@@ -46,6 +62,25 @@ class Signup extends React.Component {
    */
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
+  }
+
+  /**
+   * signUpUser
+   * Sends data for registering a new user to the server;
+   * Updates the redux state (logs user in) after recieving a response
+   * @returns {undefined}
+   */
+  signUpUser = () => {
+    const { username, email, password } = this.state;
+    axios.post('/api/signup', { username, email, password })
+      .then((res) => {
+        this.props.logIn(res.data.username, res.data.email, res.data.location);
+        this.resetForm();
+      })
+      .catch(() => {
+        this.resetForm();
+        // TODO : Add an actual error handling
+      });
   }
 
   /**
@@ -80,6 +115,7 @@ class Signup extends React.Component {
         <RaisedButton
           label="Sign up!"
           primary
+          onClick={this.signUpUser}
         />
       </div>
     );
@@ -88,10 +124,17 @@ class Signup extends React.Component {
 
 Signup.propTypes = {
   userLoggedIn: PropTypes.bool.isRequired,
+  logIn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   userLoggedIn: state.user.isLoggedIn,
 });
 
-export default connect(mapStateToProps)(Signup);
+const mapDispatchToProps = dispatch => ({
+  logIn: (name, email, location) => {
+    dispatch(logUserIn(name, email, location));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
 
 const getYelpToken = require('./lib/get-yelp-token');
 const getBars = require('./lib/get-bars');
@@ -12,6 +13,8 @@ const arrayToObject = require('./lib/array-to-object');
 const staticFile = express.static('client/build/');
 const app = express();
 app.use(staticFile);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Variables to use later in the app
@@ -36,7 +39,6 @@ app.get('/api/bars', async (req, res) => {
   const token = yelpToken || await getYelpToken(id, secret);
 
   if (!yelpToken && token) yelpToken = token;
-
   if (!token) return res.json({ error: 'No yelp token' });
 
   const bars = await getBars(token, req.query.location);
@@ -49,9 +51,10 @@ app.get('/api/bars', async (req, res) => {
   return res.json({ data });
 });
 
-app.get('/api/test', async (req, res) => {
-  const val = await db.collection('test').findOne();
-  res.json({ val });
+app.post('/api/signup', (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  res.json({ username, email, location: 'warsaw' });
 });
 
 
