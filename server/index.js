@@ -2,12 +2,17 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const expressSession = require('express-session');
+const LocalStrategy = require('passport-local');
 
 const getYelpToken = require('./lib/get-yelp-token');
 const getBars = require('./lib/get-bars');
 const getAttendants = require('./lib/get-attendants');
 const insertAttendants = require('./lib/insert-attendants');
 const arrayToObject = require('./lib/array-to-object');
+
+const User = require('./models/user');
 
 // Express setup
 const staticFile = express.static('client/build/');
@@ -16,6 +21,17 @@ app.use(staticFile);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Passport setup
+app.use(expressSession({
+  secret: 'Earth is flat',
+  resave: false,
+  saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Variables to use later in the app
 let yelpToken;
@@ -48,15 +64,28 @@ app.get('/api/bars', async (req, res) => {
 
 app.post('/api/signup', (req, res) => {
   const { username, email, password } = req.body;
-  // Just temporary setup. When doing authentication,
-  // send only username, email and location
-  res.json({ username, email, password, location: 'warsaw' });
+  const newUser = new User({ username, email });
+
+  User.register(newUser, password, (err, result) => {
+    if (err) return res.status(401).send({ err });
+
+    return req.login(result, (error) => {
+      if (err) return res.status(401).send({ error });
+      return res.json({
+        username: req.user.username,
+        email: req.user.email,
+        location: req.user.location,
+      });
+    });
+  });
 });
 
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  // Temporary setup. Remove password when doing authentication
-  res.json({ username, password, email: 'placeholder', location: 'warsaw' });
+app.post('/api/login', passport.authenticate('local'), (req, res) => {
+  res.json({
+    username: req.user.username,
+    email: req.user.email,
+    location: req.user.location,
+  });
 });
 
 

@@ -1,4 +1,4 @@
-const Bar = require('../models/bars');
+const Bar = require('../models/bar');
 
 module.exports = (places) => {
   const query = places.map(place => ({ id: place.id }));
