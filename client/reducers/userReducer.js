@@ -1,4 +1,14 @@
+/**
+ * Initial values in User substate
+ * checkedInDB {boolean} -> flag prop to let app know if the user data have
+ *                          been retrieved from the database
+ * isLoggedIn {boolean}-> flag prop the let app know if the user is logged in
+ * name {string} -> user's name
+ * email {string} -> user's email
+ * location {string} -> last location user queried in the search
+ */
 const initialState = {
+  checkedInDB: false,
   isLoggedIn: false,
   name: '',
   email: '',
@@ -11,6 +21,7 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOG_IN':
       newState = {
+        checkedInDB: true,
         isLoggedIn: true,
         name: action.payload.name,
         email: action.payload.email,
@@ -20,6 +31,7 @@ const userReducer = (state = initialState, action) => {
 
     case 'LOG_OUT':
       newState = {
+        checkedInDB: true,
         isLoggedIn: false,
         name: '',
         email: '',
