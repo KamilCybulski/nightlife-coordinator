@@ -57,12 +57,16 @@ class Login extends React.Component {
    * @returns {undefined}
    */
   sendData = () => {
-    axios.post('/api/login', this.state)
+    const username = this.state.username;
+    const password = this.state.password;
+
+    axios.post('/api/login', { username, password })
       .then((res) => {
         this.props.logIn(res.data.username, res.data.email, res.data.location);
         this.resetForm();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         this.resetForm();
       });
   }

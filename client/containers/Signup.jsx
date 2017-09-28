@@ -71,14 +71,18 @@ class Signup extends React.Component {
    * @returns {undefined}
    */
   sendData = () => {
-    const { username, email, password } = this.state;
+    const username = this.state.username;
+    const email = this.state.email;
+    const password = this.state.password;
+
     axios.post('/api/signup', { username, email, password })
       .then((res) => {
         this.props.logIn(res.data.username, res.data.email, res.data.location);
         this.resetForm();
       })
-      .catch(() => {
+      .catch((err) => {
         this.resetForm();
+        console.log(err);
         // TODO : Add an actual error handling
       });
   }
