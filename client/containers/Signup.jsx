@@ -83,7 +83,6 @@ class Signup extends React.Component {
    * @returns {undefined}
    */
   sendData = () => {
-    this.resetErrMsg();
     const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
@@ -92,7 +91,6 @@ class Signup extends React.Component {
       .then((r) => {
         if (r.data.success) {
           this.props.logIn(r.data.username, r.data.email, r.data.location);
-          this.resetForm();
         } else {
           this.setState({ errMsg: r.data.error });
         }

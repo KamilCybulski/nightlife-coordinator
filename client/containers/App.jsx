@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { logUserIn } from '../actions/user-actions';
@@ -17,7 +17,7 @@ injectTapEventPlugin();
 
 class App extends React.Component {
   /**
-   * Check if the user is loggeg in. If so, update the state.
+   * Check if the user is logged in. If so, update the state.
    * @returns {undefined}
    */
   componentDidMount = () => {
@@ -45,8 +45,14 @@ class App extends React.Component {
             <main>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
+                <Route
+                  path="/login"
+                  render={() => (this.props.userLoggedIn ? <Redirect to="/" /> : <Login />)}
+                />
+                <Route
+                  path="/signup"
+                  render={() => (this.props.userLoggedIn ? <Redirect to="/" /> : <Signup />)}
+                />
               </Switch>
             </main>
           </div>
@@ -58,6 +64,7 @@ class App extends React.Component {
 
 App.propTypes = {
   logIn: PropTypes.func.isRequired,
+  userLoggedIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

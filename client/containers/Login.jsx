@@ -25,24 +25,6 @@ class Login extends React.Component {
   }
 
   /**
-   * resetErrMsg
-   * Clear the error messages
-   * @returns {undefined}
-   */
-  resetErrMsg = () => {
-    this.setState({ errMsg: '' });
-  }
-
-  /**
-   * resetForm
-   * Clear all the textfields
-   * @returns {undefined}
-   */
-  resetForm = () => {
-    this.setState({ username: '', password: '' });
-  }
-
-  /**
    * handlePasswordChange
    * @param {object} e Keyboard event object
    * Synchronise the values of this.state.password and password textfield
@@ -68,7 +50,6 @@ class Login extends React.Component {
    * @returns {undefined}
    */
   sendData = () => {
-    this.resetErrMsg();
     const username = this.state.username;
     const password = this.state.password;
 
@@ -76,7 +57,6 @@ class Login extends React.Component {
       .then((r) => {
         if (r.data.success) {
           this.props.logIn(r.data.username, r.data.email, r.data.location);
-          this.resetForm();
         } else {
           this.setState({ errMsg: r.data.error });
         }
