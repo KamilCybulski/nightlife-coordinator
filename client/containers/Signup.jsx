@@ -10,6 +10,7 @@ import { logUserIn } from '../actions/user-actions';
 class Signup extends React.Component {
   /**
    * username, email, password -> control the values od relevant textfields
+   * errMsg -> store the value of error messages
    * @constructor
    */
   constructor() {
@@ -18,6 +19,7 @@ class Signup extends React.Component {
       username: '',
       email: '',
       password: '',
+      errMsg: '',
     };
   }
 
@@ -31,7 +33,17 @@ class Signup extends React.Component {
       username: '',
       email: '',
       password: '',
+      errMsg: '',
     });
+  }
+
+  /**
+   * resetErrMsg
+   * Clear the error messages
+   * @returns {undefined}
+   */
+  resetErrMsg = () => {
+    this.setState({ errMsg: '' });
   }
 
   /**
@@ -71,6 +83,7 @@ class Signup extends React.Component {
    * @returns {undefined}
    */
   sendData = () => {
+    this.resetErrMsg();
     const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
@@ -81,13 +94,13 @@ class Signup extends React.Component {
           this.props.logIn(r.data.username, r.data.email, r.data.location);
           this.resetForm();
         } else {
-          // TODO : Add an actual error handling
-          console.log(r.data.error);
+          this.setState({ errMsg: r.data.error });
         }
       })
-      .catch((err) => {
-        this.resetForm();
-        console.log(err);
+      .catch(() => {
+        this.setState({
+          errMsg: 'Something went wrong. Please try again.',
+        });
       });
   }
 
@@ -120,6 +133,7 @@ class Signup extends React.Component {
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
+        {this.state.errMsg}
         <RaisedButton
           label="Sign up!"
           primary

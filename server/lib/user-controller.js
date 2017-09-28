@@ -8,7 +8,7 @@ const register = (req, res) => {
     if (err) {
       return res.json({
         success: false,
-        error: err,
+        error: err.message,
       });
     }
 
