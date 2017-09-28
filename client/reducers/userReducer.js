@@ -18,6 +18,15 @@ const userReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'LOG_OUT':
+      newState = {
+        isLoggedIn: false,
+        name: '',
+        email: '',
+        location: undefined,
+      };
+      break;
+
     default:
       newState = { ...state };
   }

@@ -37,10 +37,12 @@ mongoose.connect(process.env.NIGHTLIFE_DB_URI);
 
 // Api routes
 app.get('/api/bars', getBarsData);
-app.get('/api/verifyauth', userController.checkIfLoggedIn);
 
 app.post('/api/signup', userController.register);
 app.post('/api/login', userController.login);
+
+app.get('/api/verifyauth', userController.checkIfLoggedIn);
+app.get('/api/logout', userController.logout);
 
 
 // Send the main html file

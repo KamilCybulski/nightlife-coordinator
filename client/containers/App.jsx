@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import logUserIn from '../actions/user-actions';
+import { logUserIn } from '../actions/user-actions';
 
 import Nav from '../components/Nav';
 import Home from '../components/Home';

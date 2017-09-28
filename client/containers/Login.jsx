@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import logUserIn from '../actions/user-actions';
+import { logUserIn } from '../actions/user-actions';
 
 
 class Login extends React.Component {
