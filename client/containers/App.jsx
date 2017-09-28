@@ -24,8 +24,10 @@ class App extends React.Component {
     // No rejection handler, cause no reason to do anything on rejection
     axios.get('/api/auth')
       .then((res) => {
-        const { username, email, location } = res.data;
-        this.props.logIn(username, email, location);
+        if (res.data.username) {
+          const { username, email, location } = res.data;
+          this.props.logIn(username, email, location);
+        }
       });
   }
 

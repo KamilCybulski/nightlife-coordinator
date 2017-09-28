@@ -96,7 +96,7 @@ app.get('/api/auth', (req, res) => {
       location: req.user.location,
     });
   } else {
-    res.status(401).send({ msg: 'No user logged in' });
+    res.json({ user: false });
   }
 });
 
