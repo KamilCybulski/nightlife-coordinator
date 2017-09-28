@@ -110,14 +110,14 @@ class Signup extends React.Component {
   render() {
     if (this.props.userLoggedIn) {
       return (
-        <div className="fullwidth center-items">
+        <div className="fullscreen center-items">
           You are already logged in.
         </div>
       );
     }
 
     return (
-      <div className="fullwitdh flex-column">
+      <div className="fullscreen flex-column">
         <TextField
           hintText="username"
           value={this.state.username}
