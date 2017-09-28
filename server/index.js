@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const getYelpToken = require('./lib/get-yelp-token');
@@ -18,16 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Variables to use later in the app
-let db;
 let yelpToken;
 
 
 // Connect to the Database
-MongoClient.connect(process.env.NIGHTLIFE_DB_URI, (err, database) => {
-  db = database;
-
-  app.listen(process.env.PORT || 3001);
-});
+mongoose.connect(process.env.NIGHTLIFE_DB_URI);
 
 
 // Api routes
@@ -44,7 +39,7 @@ app.get('/api/bars', async (req, res) => {
   const bars = await getBars(token, req.query.location);
   if (!bars) return res.json({ error: 'Cannot connect to yelp API' });
 
-  const attendantsArr = await getAttendants(bars, db);
+  const attendantsArr = await getAttendants(bars);
   if (!attendantsArr) return res.json({ error: 'Cannot connect to the DB' });
 
   const data = insertAttendants(bars, arrayToObject(attendantsArr));
@@ -69,3 +64,5 @@ app.post('/api/login', (req, res) => {
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+app.listen(process.env.PORT || 3001);

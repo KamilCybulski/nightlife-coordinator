@@ -1,6 +1,6 @@
-module.exports = (places, db) => {
+const Bar = require('../models/bar');
+
+module.exports = (places) => {
   const query = places.map(place => ({ id: place.id }));
-  return db.collection('bars')
-    .find({ $or: query }, { _id: 0 })
-    .toArray();
+  return Bar.find({ $or: query }, { _id: 0 });
 };
