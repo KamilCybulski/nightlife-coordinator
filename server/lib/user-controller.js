@@ -4,7 +4,7 @@ const register = (req, res) => {
   const { username, email, password } = req.body;
   const newUser = new User({ username, email });
 
-  User.register(newUser, password, (err, result) => {
+  User.register(newUser, password, (err, user) => {
     if (err) {
       return res.json({
         success: false,
@@ -12,11 +12,13 @@ const register = (req, res) => {
       });
     }
 
-    return res.json({
-      success: true,
-      username: result.username,
-      email: result.email,
-      location: result.location,
+    return req.login(user, () => {
+      res.json({
+        success: true,
+        username: user.username,
+        email: user.email,
+        location: user.location,
+      });
     });
   });
 };
@@ -41,6 +43,7 @@ const login = (req, res, next) => {
 };
 
 const checkIfLoggedIn = (req, res) => {
+  console.log(req.user);
   if (req.user) {
     res.json({
       success: true,
