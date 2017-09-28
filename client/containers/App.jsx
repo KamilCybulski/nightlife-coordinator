@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { logUserIn } from '../actions/user-actions';
 
 import Nav from '../components/Nav';
-import Home from '../components/Home';
+import Home from '../containers/Home';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -29,8 +29,6 @@ class App extends React.Component {
           const email = res.data.email;
           const location = res.data.location;
           this.props.logIn(username, email, location);
-        } else {
-          console.log(res.data.error);
         }
       });
   }
