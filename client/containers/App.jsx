@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import axios from 'axios';
+import { connect } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import logUserIn from '../actions/user-actions';
 
 import Nav from '../components/Nav';
 import Home from '../components/Home';
@@ -10,21 +15,61 @@ import Signup from './Signup';
 
 injectTapEventPlugin();
 
-const App = () => (
-  <MuiThemeProvider>
-    <HashRouter>
-      <div>
-        <Nav />
-        <main>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
-        </main>
-      </div>
-    </HashRouter>
-  </MuiThemeProvider>
-);
+class App extends React.Component {
+  /**
+   * Check if the user is loggeg in. If so, update the state.
+   * @returns {undefined}
+   */
+  componentDidMount = () => {
+    // No rejection handler, cause no reason to do anything on rejection
+    axios.get('/api/verifyauth')
+      .then((res) => {
+        if (res.data.success) {
+          const username = res.data.username;
+          const email = res.data.email;
+          const location = res.data.location;
+          this.props.logIn(username, email, location);
+        } else {
+          console.log(res.data.error);
+        }
+      });
+  }
 
-export default App;
+  /**
+   * @returns {object} React Element
+   */
+  render() {
+    return (
+      <MuiThemeProvider>
+        <HashRouter>
+          <div>
+            <Nav />
+            <main>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+              </Switch>
+            </main>
+          </div>
+        </HashRouter>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+App.propTypes = {
+  logIn: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  userLoggedIn: state.user.isLoggedIn,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logIn: (name, email, location) => {
+    dispatch(logUserIn(name, email, location));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
