@@ -15,7 +15,7 @@
     "build": "npm run build:client && npm run build:server",
     "build:client": "webpack --config webpack.config.prod.client.js",
     "build:server": "webpack --config webpack.config.prod.server.js",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
