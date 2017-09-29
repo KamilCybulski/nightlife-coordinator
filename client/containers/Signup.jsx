@@ -106,14 +106,6 @@ class Signup extends React.Component {
    * @returns {object} React element
    */
   render() {
-    if (this.props.userLoggedIn) {
-      return (
-        <div className="fullscreen center-items">
-          You are already logged in.
-        </div>
-      );
-    }
-
     return (
       <div className="fullscreen flex-column">
         <TextField
@@ -143,13 +135,10 @@ class Signup extends React.Component {
 }
 
 Signup.propTypes = {
-  userLoggedIn: PropTypes.bool.isRequired,
   logIn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  userLoggedIn: state.user.isLoggedIn,
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   logIn: (name, email, location) => {
