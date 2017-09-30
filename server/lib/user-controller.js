@@ -72,9 +72,8 @@ const checkIfLoggedIn = user => new Promise((resolve) => {
   }
 });
 
-const logout = (req, res) => {
-  req.logout();
-  res.json({ success: true });
-};
+const logout = req => new Promise((resolve) => {
+  resolve(req.logout());
+});
 
 module.exports = { register, login, logout, checkIfLoggedIn };
