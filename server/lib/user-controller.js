@@ -56,21 +56,21 @@ const login = req => new Promise((resolve) => {
   });
 });
 
-const checkIfLoggedIn = (req, res) => {
-  if (req.user) {
-    res.json({
+const checkIfLoggedIn = user => new Promise((resolve) => {
+  if (user) {
+    resolve({
       success: true,
-      username: req.user.username,
-      email: req.user.email,
-      location: req.user.location,
+      username: user.username,
+      email: user.email,
+      location: user.location,
     });
   } else {
-    res.json({
+    resolve({
       success: false,
       error: 'User not logged in',
     });
   }
-};
+});
 
 const logout = (req, res) => {
   req.logout();

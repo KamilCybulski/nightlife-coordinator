@@ -52,9 +52,12 @@ app.post('/api/login', async (req, res) => {
   res.json(result);
 });
 
-app.get('/api/verifyauth', userController.checkIfLoggedIn);
 app.get('/api/logout', userController.logout);
 
+app.get('/api/verifyauth', async (req, res) => {
+  const result = await userController.checkIfLoggedIn(req.user);
+  res.json(result);
+});
 
 // Send the main html file
 app.get('/*', (req, res) => {
