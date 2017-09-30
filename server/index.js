@@ -47,7 +47,10 @@ app.post('/api/signup', async (req, res) => {
   res.json(result);
 });
 
-app.post('/api/login', userController.login);
+app.post('/api/login', async (req, res) => {
+  const result = await userController.login(req);
+  res.json(result);
+});
 
 app.get('/api/verifyauth', userController.checkIfLoggedIn);
 app.get('/api/logout', userController.logout);

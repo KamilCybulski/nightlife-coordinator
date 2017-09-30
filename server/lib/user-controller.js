@@ -29,24 +29,32 @@ const register = req => new Promise((resolve) => {
 });
 
 
-const login = (req, res, next) => {
+const login = req => new Promise((resolve) => {
   const { username, password } = req.body;
 
   User.authenticate()(username, password, (err, user, options) => {
-    if (err) return next(err);
-
-    if (user === false) {
-      return res.json({ success: false, error: options.message });
+    if (err) {
+      resolve({
+        success: false,
+        error: err.message,
+      });
+    } else if (user === false) {
+      resolve({
+        success: false,
+        error: options.message,
+      });
+    } else {
+      req.login(user, () => {
+        resolve({
+          success: true,
+          username: user.username,
+          email: user.email,
+          location: user.location,
+        });
+      });
     }
-
-    return req.login(user, () => res.json({
-      success: true,
-      username: user.username,
-      email: user.email,
-      location: user.location,
-    }));
   });
-};
+});
 
 const checkIfLoggedIn = (req, res) => {
   if (req.user) {
