@@ -1,27 +1,22 @@
 const User = require('../models/user');
 
-const register = (req, res) => {
-  const { username, email, password } = req.body;
+const register = (username, email, password) => new Promise((resolve) => {
   const newUser = new User({ username, email });
 
   User.register(newUser, password, (err, user) => {
     if (err) {
-      return res.json({
+      resolve({
         success: false,
         error: err.message,
       });
     }
 
-    return req.login(user, () => {
-      res.json({
-        success: true,
-        username: user.username,
-        email: user.email,
-        location: user.location,
-      });
+    resolve({
+      success: true,
+      user,
     });
   });
-};
+});
 
 const login = (req, res, next) => {
   const { username, password } = req.body;
@@ -43,7 +38,6 @@ const login = (req, res, next) => {
 };
 
 const checkIfLoggedIn = (req, res) => {
-  console.log(req.user);
   if (req.user) {
     res.json({
       success: true,

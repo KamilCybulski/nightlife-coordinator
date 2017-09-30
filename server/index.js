@@ -42,7 +42,24 @@ app.get('/api/bars', async (req, res) => {
   return res.json(data);
 });
 
-app.post('/api/signup', userController.register);
+app.post('/api/signup', async (req, res) => {
+  const { username, email, password } = req.body;
+  const result = await userController.register(username, email, password);
+
+  if (result.success) {
+    req.login(result.user, () => {
+      res.json({
+        success: true,
+        username: result.user.username,
+        email: result.user.email,
+        location: result.user.location,
+      });
+    });
+  } else {
+    res.json(result);
+  }
+});
+
 app.post('/api/login', userController.login);
 
 app.get('/api/verifyauth', userController.checkIfLoggedIn);
