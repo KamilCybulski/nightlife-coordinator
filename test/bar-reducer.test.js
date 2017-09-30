@@ -24,10 +24,14 @@ describe('LOAD_BARS action:', () => {
     ],
   };
 
-  const state = [];
+  const state = {
+    checkedInDB: false,
+    places: [],
+  };
 
   it('works as intended', () => {
     expect(reducer(state, action)).toEqual(expect.objectContaining({
+      checkedInDB: true,
       places: [
         {
           id: 'xxx-warsaw',

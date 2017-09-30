@@ -23,3 +23,14 @@ export function logUserOut() {
     type: 'LOG_OUT',
   };
 }
+
+/**
+ * markUserAsChecked
+ * Informs a reducer that user has been checked in DB and is not logged in
+ * @returns {object} an axtion object
+ */
+export function markUserAsChecked() {
+  return {
+    type: 'MARK_USER_CHECKED',
+  };
+}

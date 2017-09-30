@@ -38,8 +38,8 @@ mongoose.connect(process.env.NIGHTLIFE_DB_URI);
 // Api routes
 app.get('/api/bars', async (req, res) => {
   if (!req.query.location) return res.json({ error: 'No location specified' });
-  const data = await getBarsData(req.query.location);
-  return res.json(data);
+  const bars = await getBarsData(req.query.location);
+  return res.json(bars);
 });
 
 app.post('/api/signup', async (req, res) => {

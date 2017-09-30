@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { logUserIn } from '../actions/user-actions';
+import { logUserIn, markUserAsChecked } from '../actions/user-actions';
 import loadBars from '../actions/bars-actions';
 
 import Nav from '../components/Nav';
@@ -31,6 +31,8 @@ class App extends React.Component {
           const location = res.data.user.location;
           this.props.logIn(username, email, location);
           this.props.loadBars(res.data.bars);
+        } else {
+          this.props.markUser();
         }
       });
   }
@@ -67,6 +69,7 @@ class App extends React.Component {
 App.propTypes = {
   logIn: PropTypes.func.isRequired,
   loadBars: PropTypes.func.isRequired,
+  markUser: PropTypes.func.isRequired,
   userLoggedIn: PropTypes.bool.isRequired,
 };
 
@@ -80,6 +83,9 @@ const mapDispatchToProps = dispatch => ({
   },
   loadBars: (bars) => {
     dispatch(loadBars(bars));
+  },
+  markUser: () => {
+    dispatch(markUserAsChecked());
   },
 });
 

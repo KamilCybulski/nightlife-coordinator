@@ -39,6 +39,16 @@ const userReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'MARK_USER_CHECKED':
+      newState = {
+        checkedInDB: true,
+        isLoggedIn: false,
+        name: '',
+        email: '',
+        location: undefined,
+      };
+      break;
+
     default:
       newState = { ...state };
   }
