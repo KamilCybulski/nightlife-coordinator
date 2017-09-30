@@ -1,15 +1,13 @@
 const initialState = {
-  bars: [],
+  places: [],
 };
-
 const barsReducer = (state = initialState, action) => {
   let newState;
 
   switch (action.type) {
     case 'LOAD_BARS':
       newState = {
-        ...state,
-        bars: action.payload,
+        places: action.payload,
       };
       break;
 

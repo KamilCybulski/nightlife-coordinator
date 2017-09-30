@@ -57,9 +57,16 @@ app.get('/api/logout', async (req, res) => {
   res.json({ success: true });
 });
 
-app.get('/api/verifyauth', async (req, res) => {
+app.get('/api/getuserdata', async (req, res) => {
   const result = await userController.checkIfLoggedIn(req.user);
-  res.json(result);
+  const bars = result.success && result.user.location
+    ? await getBarsData(result.user.location)
+    : [];
+  res.json({
+    success: result.success,
+    user: result.user,
+    bars,
+  });
 });
 
 // Send the main html file

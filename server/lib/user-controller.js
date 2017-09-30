@@ -60,14 +60,16 @@ const checkIfLoggedIn = user => new Promise((resolve) => {
   if (user) {
     resolve({
       success: true,
-      username: user.username,
-      email: user.email,
-      location: user.location,
+      user: {
+        username: user.username,
+        email: user.email,
+        location: user.location,
+      },
     });
   } else {
     resolve({
       success: false,
-      error: 'User not logged in',
+      user: false,
     });
   }
 });
