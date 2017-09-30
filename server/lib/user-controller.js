@@ -1,20 +1,31 @@
 const User = require('../models/user');
 
-const register = (username, email, password) => new Promise((resolve) => {
+/**
+ * register
+ * @param {string} username User's name.
+ * @param {string} email User's email.
+ * @param {string} password User's password.
+ * @param {object} req Reference to the request object (to perform logging in).
+ * Creates a new user in the database and logs them in.
+ * @returns {object} Result object. In case of error contains error message.
+ *                   Otherwise, contains user data for the frontend
+ */
+const register = (username, email, password, req) => new Promise((resolve) => {
   const newUser = new User({ username, email });
 
   User.register(newUser, password, (err, user) => {
     if (err) {
-      resolve({
-        success: false,
-        error: err.message,
+      resolve({ success: false, error: err.message });
+    } else {
+      req.login(user, () => {
+        resolve({
+          success: true,
+          username: user.username,
+          email: user.email,
+          location: user.location,
+        });
       });
     }
-
-    resolve({
-      success: true,
-      user,
-    });
   });
 });
 
