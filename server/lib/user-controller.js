@@ -2,15 +2,14 @@ const User = require('../models/user');
 
 /**
  * register
- * @param {string} username User's name.
- * @param {string} email User's email.
- * @param {string} password User's password.
- * @param {object} req Reference to the request object (to perform logging in).
+ * @param {object} req Reference to the request object. Request body should
+ *                     contain necessary user data.
  * Creates a new user in the database and logs them in.
  * @returns {object} Result object. In case of error contains error message.
  *                   Otherwise, contains user data for the frontend
  */
-const register = (username, email, password, req) => new Promise((resolve) => {
+const register = req => new Promise((resolve) => {
+  const { username, email, password } = req.body;
   const newUser = new User({ username, email });
 
   User.register(newUser, password, (err, user) => {
@@ -28,6 +27,7 @@ const register = (username, email, password, req) => new Promise((resolve) => {
     }
   });
 });
+
 
 const login = (req, res, next) => {
   const { username, password } = req.body;

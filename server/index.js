@@ -43,9 +43,7 @@ app.get('/api/bars', async (req, res) => {
 });
 
 app.post('/api/signup', async (req, res) => {
-  const { username, email, password } = req.body;
-  const result = await userController.register(username, email, password, req);
-
+  const result = await userController.register(req);
   res.json(result);
 });
 
