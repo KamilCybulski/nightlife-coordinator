@@ -42,22 +42,20 @@ const getYelpToken = (clientId, clientSecret) =>
 
 let yelpToken;
 
-module.exports = async (req, res) => {
-  if (!req.query.location) return res.json({ error: 'No location specified' });
-
+module.exports = async (location) => {
   const id = process.env.YELP_CLIENT_ID;
   const secret = process.env.YELP_CLIENT_SECRET;
   const token = yelpToken || await getYelpToken(id, secret);
 
   if (!yelpToken && token) yelpToken = token;
-  if (!token) return res.json({ error: 'No yelp token' });
+  if (!token) return { error: 'No yelp token' };
 
-  const bars = await getBars(token, req.query.location);
-  if (!bars) return res.json({ error: 'Cannot connect to yelp API' });
+  const bars = await getBars(token, location);
+  if (!bars) return { error: 'Cannot connect to yelp API' };
 
   const attendantsArr = await getAttendants(bars);
-  if (!attendantsArr) return res.json({ error: 'Cannot connect to the DB' });
+  if (!attendantsArr) return { error: 'Cannot connect to the DB' };
 
   const data = insertAttendants(bars, arrayToObject(attendantsArr));
-  return res.json({ data });
+  return data;
 };
