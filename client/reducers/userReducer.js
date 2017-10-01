@@ -49,6 +49,13 @@ const userReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'UPDATE_LOCATION':
+      newState = {
+        ...state,
+        location: action.payload,
+      };
+      break;
+
     default:
       newState = { ...state };
   }

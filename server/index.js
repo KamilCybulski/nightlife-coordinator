@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -7,6 +9,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
+const updateLocation = require('./lib/update-location');
 const getBarsData = require('./lib/get-bars-data.js');
 const userController = require('./lib/user-controller');
 const User = require('./models/user');
@@ -38,6 +41,8 @@ mongoose.connect(process.env.NIGHTLIFE_DB_URI);
 // Api routes
 app.get('/api/bars', async (req, res) => {
   if (!req.query.location) return res.json({ error: 'No location specified' });
+  if (req.user) updateLocation(req.user._id, req.query.location);
+
   const bars = await getBarsData(req.query.location);
   return res.json(bars);
 });
@@ -59,6 +64,7 @@ app.get('/api/logout', async (req, res) => {
 
 app.get('/api/verifyuser', async (req, res) => {
   const result = await userController.checkIfLoggedIn(req.user);
+  console.log(req.user);
   res.json(result);
 });
 

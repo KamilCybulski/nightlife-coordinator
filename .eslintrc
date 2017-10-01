@@ -18,6 +18,9 @@
             "FunctionDeclaration": true,
             "MethodDefinition": true
         }
+    }],
+    "no-underscore-dangle": ["error", {
+      "allow": ["_id"]
     }]
   }
 }

@@ -27,10 +27,23 @@ export function logUserOut() {
 /**
  * markUserAsChecked
  * Informs a reducer that user has been checked in DB and is not logged in
- * @returns {object} an axtion object
+ * @returns {object} an ation object
  */
 export function markUserAsChecked() {
   return {
     type: 'MARK_USER_CHECKED',
+  };
+}
+
+/**
+ * updateLocation
+ * @param {string} location New location to update
+ * Replace the current location in the user substate with new.
+ * @returns {object} an action object
+ */
+export function updateLocation(location) {
+  return {
+    type: 'UPDATE_LOCATION',
+    payload: location,
   };
 }

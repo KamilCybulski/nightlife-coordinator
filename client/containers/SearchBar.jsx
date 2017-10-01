@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 import loadBars from '../actions/bars-actions';
+import { updateLocation } from '../actions/user-actions';
 
 
 class SearchBar extends React.Component {
@@ -19,7 +20,7 @@ class SearchBar extends React.Component {
       query: '',
     };
   }
-
+  /*
   getBarsData = () => {
     axios.get(`/api/bars?location=${this.state.query}`)
       .then((res) => {
@@ -28,6 +29,11 @@ class SearchBar extends React.Component {
       .catch(() => {
         this.props.loadBars([]);
       });
+  }
+  */
+
+  updateLocation = () => {
+    this.props.updateLocation(this.state.query);
   }
 
   /**
@@ -53,7 +59,7 @@ class SearchBar extends React.Component {
         />
         <FlatButton
           label="Search"
-          onClick={this.getBarsData}
+          onClick={this.updateLocation}
         />
       </div>
     );
@@ -62,12 +68,16 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   loadBars: PropTypes.func.isRequired,
+  updateLocation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   loadBars: (bars) => {
     dispatch(loadBars(bars));
+  },
+  updateLocation: (location) => {
+    dispatch(updateLocation(location));
   },
 });
 
