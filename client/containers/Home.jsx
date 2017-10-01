@@ -10,11 +10,19 @@ import loadBars from '../actions/bars-actions';
 
 class Home extends React.Component {
   componentDidMount = () => {
-    const user = this.props.userLoggedIn;
-    const location = this.props.userLocation;
-    const checkedInDB = this.props.placesCheckedInDB;
+    this.getBarsData();
+  }
 
-    if (user && location && !checkedInDB) {
+  componentDidUpdate = () => {
+    this.getBarsData();
+  }
+
+  getBarsData = () => {
+    const user = this.props.userLoggedIn;
+    const location = this.props.location;
+    const places = this.props.places;
+
+    if (user && location && places === null) {
       axios.get(`/api/bars?location=${location}`)
         .then((res) => {
           this.props.loadBars(res.data);
@@ -29,45 +37,54 @@ class Home extends React.Component {
    * @returns {object} React element
    */
   render() {
-    if (!this.props.userCheckedInDB) {
-      return <Loader />;
-    }
+    const { userLoggedIn, location, places } = this.props;
 
-    if (!this.props.userLoggedIn || !this.props.userLocation) {
+    if (userLoggedIn && !location && places === null) {
       return <SearchBar />;
     }
 
-    if (!this.props.placesCheckedInDB) {
+    if (userLoggedIn && location && places === null) {
       return <Loader />;
     }
 
-    if (this.props.userLocation.length === 0) {
-      return <div>Places array is empty</div>;
+    if (userLoggedIn && location && places) {
+      if (places.length === 0) {
+        return <div> Empty list </div>;
+      }
+
+      return (
+        <div>
+          {places.map(p => <p>{p.name}</p>)}
+        </div>
+      );
     }
 
-    return (
-      <div>
-        <p>{this.props.places.map(i => <p>{i.name}</p>)}</p>
-      </div>
-    );
+    if (!userLoggedIn && places) {
+      return (
+        <div>
+          {places.map(p => <p>{p.name}</p>)}
+        </div>
+      );
+    }
+
+    return <div />;
   }
 }
 
+Home.defaultProps = {
+  places: null,
+};
 
 Home.propTypes = {
   userLoggedIn: PropTypes.bool.isRequired,
-  userLocation: PropTypes.string.isRequired,
-  userCheckedInDB: PropTypes.bool.isRequired,
-  placesCheckedInDB: PropTypes.bool.isRequired,
-  places: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.string.isRequired,
+  places: PropTypes.arrayOf(PropTypes.object),
   loadBars: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   userLoggedIn: state.user.isLoggedIn,
-  userLocation: state.user.location,
-  userCheckedInDB: state.user.checkedInDB,
-  placesCheckedInDB: state.bars.checkedInDB,
+  location: state.user.location,
   places: state.bars.places,
 });
 

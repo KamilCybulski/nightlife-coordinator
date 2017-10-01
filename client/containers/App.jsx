@@ -7,7 +7,6 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { logUserIn, markUserAsChecked } from '../actions/user-actions';
-import loadBars from '../actions/bars-actions';
 
 import Nav from '../components/Nav';
 import Home from '../containers/Home';
@@ -23,14 +22,13 @@ class App extends React.Component {
    */
   componentDidMount = () => {
     // No rejection handler, cause no reason to do anything on rejection
-    axios.get('/api/getuserdata')
+    axios.get('/api/verifyuser')
       .then((res) => {
         if (res.data.success) {
           const username = res.data.user.username;
           const email = res.data.user.email;
           const location = res.data.user.location;
           this.props.logIn(username, email, location);
-          this.props.loadBars(res.data.bars);
         } else {
           this.props.markUser();
         }
@@ -68,7 +66,6 @@ class App extends React.Component {
 
 App.propTypes = {
   logIn: PropTypes.func.isRequired,
-  loadBars: PropTypes.func.isRequired,
   markUser: PropTypes.func.isRequired,
   userLoggedIn: PropTypes.bool.isRequired,
 };
@@ -80,9 +77,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logIn: (name, email, location) => {
     dispatch(logUserIn(name, email, location));
-  },
-  loadBars: (bars) => {
-    dispatch(loadBars(bars));
   },
   markUser: () => {
     dispatch(markUserAsChecked());

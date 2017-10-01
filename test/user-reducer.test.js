@@ -16,7 +16,7 @@ describe('LOG_IN action:', () => {
     isLoggedIn: false,
     name: '',
     email: '',
-    location: undefined,
+    location: '',
   };
 
   it('works as intended', () => {
@@ -48,7 +48,7 @@ describe('LOG_OUT action:', () => {
       isLoggedIn: false,
       name: '',
       email: '',
-      location: undefined,
+      location: '',
     }));
   });
 });

@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema({
   username: String,
   email: String,
   password: String,
-  location: String,
+  location: {
+    type: String,
+    default: '',
+  },
   barsToAttend: [String],
 });
 

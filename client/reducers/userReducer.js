@@ -12,7 +12,7 @@ const initialState = {
   isLoggedIn: false,
   name: '',
   email: '',
-  location: undefined,
+  location: '',
 };
 
 const userReducer = (state = initialState, action) => {
@@ -35,7 +35,7 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: false,
         name: '',
         email: '',
-        location: undefined,
+        location: '',
       };
       break;
 
@@ -45,7 +45,7 @@ const userReducer = (state = initialState, action) => {
         isLoggedIn: false,
         name: '',
         email: '',
-        location: undefined,
+        location: '',
       };
       break;
 
