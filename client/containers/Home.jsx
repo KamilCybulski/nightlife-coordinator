@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Loader from '../components/Loader';
+import SearchBar from './SearchBar';
 
 import loadBars from '../actions/bars-actions';
 
@@ -16,7 +17,10 @@ class Home extends React.Component {
     if (user && location && !checkedInDB) {
       axios.get(`/api/bars?location=${location}`)
         .then((res) => {
-          this.props.loadBars(res.data.bars);
+          this.props.loadBars(res.data);
+        })
+        .catch(() => {
+          this.props.loadBars([]);
         });
     }
   }
@@ -29,12 +33,8 @@ class Home extends React.Component {
       return <Loader />;
     }
 
-    if (!this.props.userLoggedIn) {
-      return <div>Just a search bar</div>;
-    }
-
-    if (!this.props.userLocation) {
-      return <div>Just a search bar (user logged)</div>;
+    if (!this.props.userLoggedIn || !this.props.userLocation) {
+      return <SearchBar />;
     }
 
     if (!this.props.placesCheckedInDB) {
@@ -46,7 +46,9 @@ class Home extends React.Component {
     }
 
     return (
-      <div>{this.props.places[0].name}</div>
+      <div>
+        <p>{this.props.places.map(i => <p>{i.name}</p>)}</p>
+      </div>
     );
   }
 }
