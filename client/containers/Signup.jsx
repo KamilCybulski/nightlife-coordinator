@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import { logUserIn } from '../actions/user-actions';
+import { clearBars } from '../actions/bars-actions';
 
 class Signup extends React.Component {
   /**
@@ -91,6 +92,7 @@ class Signup extends React.Component {
       .then((r) => {
         if (r.data.success) {
           this.props.logIn(r.data.username, r.data.email, r.data.location);
+          this.props.clearBars();
         } else {
           this.setState({ errMsg: r.data.error });
         }
@@ -136,6 +138,7 @@ class Signup extends React.Component {
 
 Signup.propTypes = {
   logIn: PropTypes.func.isRequired,
+  clearBars: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => ({});
@@ -143,6 +146,9 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   logIn: (name, email, location) => {
     dispatch(logUserIn(name, email, location));
+  },
+  clearBars: () => {
+    dispatch(clearBars());
   },
 });
 
