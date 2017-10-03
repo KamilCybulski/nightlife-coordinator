@@ -16,8 +16,8 @@ const NavButtons = ({ username, logout, clearbars }) => {
     axios.get('/api/logout')
       .then((res) => {
         if (res.data.success) {
-          logout();
           clearbars();
+          logout();
         }
       });
   };
