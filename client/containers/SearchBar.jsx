@@ -20,20 +20,25 @@ class SearchBar extends React.Component {
       query: '',
     };
   }
-  /*
-  getBarsData = () => {
-    axios.get(`/api/bars?location=${this.state.query}`)
-      .then((res) => {
-        this.props.loadBars(res.data);
-      })
-      .catch(() => {
-        this.props.loadBars([]);
-      });
-  }
-  */
 
-  updateLocation = () => {
-    this.props.updateLocation(this.state.query);
+  searchForBars = () => {
+    const getBarsData = () => {
+      axios.get(`/api/bars?location=${this.state.query}`)
+        .then((res) => {
+          this.props.loadBars(res.data);
+        })
+        .catch(() => {
+          this.props.loadBars([]);
+        });
+    };
+
+    const onlyUpdateLocation = () => {
+      this.props.updateLocation(this.state.query);
+    };
+
+    return this.props.userLoggedIn
+      ? onlyUpdateLocation()
+      : getBarsData();
   }
 
   /**
@@ -59,7 +64,7 @@ class SearchBar extends React.Component {
         />
         <FlatButton
           label="Search"
-          onClick={this.updateLocation}
+          onClick={this.searchForBars}
         />
       </div>
     );
@@ -69,9 +74,12 @@ class SearchBar extends React.Component {
 SearchBar.propTypes = {
   loadBars: PropTypes.func.isRequired,
   updateLocation: PropTypes.func.isRequired,
+  userLoggedIn: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  userLoggedIn: state.user.isLoggedIn,
+});
 const mapDispatchToProps = dispatch => ({
   loadBars: (bars) => {
     dispatch(loadBars(bars));
