@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import SearchBar from './SearchBar';
 
-import loadBars from '../actions/bars-actions';
+import { loadBars } from '../actions/bars-actions';
 
 
 class Home extends React.Component {

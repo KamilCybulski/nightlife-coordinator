@@ -7,15 +7,17 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
 import { logUserOut } from '../actions/user-actions';
+import { clearBars } from '../actions/bars-actions';
 
 // TODO : Might be worth to refactor this stuff into 1 component!
 
-const NavButtons = ({ username, logout }) => {
+const NavButtons = ({ username, logout, clearbars }) => {
   const logOut = () => {
     axios.get('/api/logout')
       .then((res) => {
         if (res.data.success) {
           logout();
+          clearbars();
         }
       });
   };
@@ -42,12 +44,13 @@ const NavButtons = ({ username, logout }) => {
 NavButtons.propTypes = {
   username: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired,
+  clearbars: PropTypes.func.isRequired,
 };
 
 const Nav = props => (
   <AppBar
     showMenuIconButton={false}
-    iconElementRight={<NavButtons username={props.user.name} logout={props.logOut} />}
+    iconElementRight={<NavButtons username={props.user.name} logout={props.logOut} clearbars={props.clearBars} />}
   />
 );
 
@@ -56,12 +59,16 @@ Nav.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
   logOut: PropTypes.func.isRequired,
+  clearBars: PropTypes.func.isRequired,
 };
 
 const mapPropsToState = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   logOut: () => {
     dispatch(logUserOut());
+  },
+  clearBars: () => {
+    dispatch(clearBars());
   },
 });
 

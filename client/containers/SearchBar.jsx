@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-import loadBars from '../actions/bars-actions';
+import { loadBars } from '../actions/bars-actions';
 import { updateLocation } from '../actions/user-actions';
 
 

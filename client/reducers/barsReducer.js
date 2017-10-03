@@ -16,6 +16,12 @@ const barsReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'CLEAR_BARS':
+      newState = {
+        places: null,
+      };
+      break;
+
     default:
       newState = { ...state };
   }
