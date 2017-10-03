@@ -64,7 +64,6 @@ app.get('/api/logout', async (req, res) => {
 
 app.get('/api/verifyuser', async (req, res) => {
   const result = await userController.checkIfLoggedIn(req.user);
-  console.log(req.user);
   res.json(result);
 });
 

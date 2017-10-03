@@ -67,7 +67,7 @@ class Home extends React.Component {
       );
     }
 
-    return <div />;
+    return <SearchBar />;
   }
 }
 
