@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import SearchBar from './SearchBar';
+import BarListItem from '../components/BarListItem';
 
 import { loadBars } from '../actions/bars-actions';
 
@@ -39,6 +40,7 @@ class Home extends React.Component {
   render() {
     const { userLoggedIn, location, places } = this.props;
 
+
     if (userLoggedIn && !location && places === null) {
       return <SearchBar />;
     }
@@ -53,8 +55,18 @@ class Home extends React.Component {
       }
 
       return (
-        <div>
-          {places.map(p => <p>{p.name}</p>)}
+        <div className="fullwidth flex-column">
+          <SearchBar />
+          {places.map(p => (
+            <BarListItem
+              key={p.id}
+              name={p.name}
+              rating={p.rating}
+              attendants={p.attendants_number || 0}
+              btnLabel={'Ima button'}
+              btnFunc={() => { console.log('button pressed'); }}
+            />
+          ))}
         </div>
       );
     }
