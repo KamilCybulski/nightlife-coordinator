@@ -11,33 +11,32 @@ import { loadBars } from '../actions/bars-actions';
 
 class Home extends React.Component {
   /**
-   * conponentDidMount
-   * Calls get bars data. The only condition for getBarsData to fetch new data
-   * is for this.props.places to be null.
+   * componentDidMount
+   * Calls get bars data. There is no need to place any conditions because
+   * componentDidMount will only get called in two situations:
+   *  1. User just got logged in and is redirected to Home. In this case user
+   *     data is passed as props to Home before mounting and we can safely fetch
+   *     bars data.
+   *  2. User reloaded the page. In this case user data will be passed to the 
+   *     component long after mounting and we need to handle bars updates in 
+   *     componendDidUpdate
    * @returns {undefined}
    */
   componentDidMount = () => {
-    if (this.props.places === null) {
-      this.getBarsData();
-    }
+    this.getBarsData();
   }
 
   /**
    * componendDidUpdate
    * @param {object} prevProps Previous props of the component
-   * Calls getBarsData after each update. getBarsData will fetch new data
-   * in 3 cases:
-   *  1. this.props.places is null
-   *  2. this.props.location has changed
-   *  3. this.props.places has changed // TODO
+   * Calls getBarsData only if user's location has been updated.
    * @returns {undefined}
    */
   componentDidUpdate = (prevProps) => {
     const oldLocation = prevProps.location;
     const newLocation = this.props.location;
-    const places = this.props.places;
 
-    if (places === null || newLocation !== oldLocation) {
+    if (oldLocation !== newLocation) {
       this.getBarsData();
     }
   }
@@ -52,7 +51,6 @@ class Home extends React.Component {
   getBarsData = () => {
     const user = this.props.userLoggedIn;
     const location = this.props.location;
-
     if (user && location) {
       axios.get(`/api/bars?location=${location}`)
         .then((res) => {
