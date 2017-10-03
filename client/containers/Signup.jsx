@@ -89,12 +89,16 @@ class Signup extends React.Component {
     const password = this.state.password;
 
     axios.post('/api/signup', { username, email, password })
-      .then((r) => {
-        if (r.data.success) {
-          this.props.logIn(r.data.username, r.data.email, r.data.location);
+      .then((res) => {
+        if (res.data.success) {
+          const name = res.data.username;
+          const mail = res.data.email;
+          const location = res.data.location;
+          const barsToAttend = res.data.barsToAttend;
+          this.props.logIn(name, mail, location, barsToAttend);
           this.props.clearBars();
         } else {
-          this.setState({ errMsg: r.data.error });
+          this.setState({ errMsg: res.data.error });
         }
       })
       .catch(() => {
@@ -144,8 +148,8 @@ Signup.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  logIn: (name, email, location) => {
-    dispatch(logUserIn(name, email, location));
+  logIn: (name, email, location, barsToAttend) => {
+    dispatch(logUserIn(name, email, location, barsToAttend));
   },
   clearBars: () => {
     dispatch(clearBars());

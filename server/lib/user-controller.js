@@ -22,6 +22,7 @@ const register = req => new Promise((resolve) => {
           username: user.username,
           email: user.email,
           location: user.location,
+          barsToAttend: user.barsToAttend,
         });
       });
     }
@@ -50,6 +51,7 @@ const login = req => new Promise((resolve) => {
           username: user.username,
           email: user.email,
           location: user.location,
+          barsToAttend: user.barsToAttend,
         });
       });
     }
@@ -64,6 +66,7 @@ const checkIfLoggedIn = user => new Promise((resolve) => {
         username: user.username,
         email: user.email,
         location: user.location,
+        barsToAttend: user.barsToAttend,
       },
     });
   } else {

@@ -3,13 +3,14 @@
  * @param {string} name username
  * @param {string} email user's email
  * @param {string} location user's last searched location
+ * @param {array} barsToAttend array of bars that user wants to attend
  * Payload contains user data
  * @returns {object} an action object
  */
-export function logUserIn(name, email, location) {
+export function logUserIn(name, email, location, barsToAttend) {
   return {
     type: 'LOG_IN',
-    payload: { name, email, location },
+    payload: { name, email, location, barsToAttend },
   };
 }
 

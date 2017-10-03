@@ -28,7 +28,8 @@ class App extends React.Component {
           const username = res.data.user.username;
           const email = res.data.user.email;
           const location = res.data.user.location;
-          this.props.logIn(username, email, location);
+          const barsToAttend = res.data.user.barsToAttend;
+          this.props.logIn(username, email, location, barsToAttend);
         } else {
           this.props.markUser();
         }
@@ -75,8 +76,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logIn: (name, email, location) => {
-    dispatch(logUserIn(name, email, location));
+  logIn: (name, email, location, barsToAttend) => {
+    dispatch(logUserIn(name, email, location, barsToAttend));
   },
   markUser: () => {
     dispatch(markUserAsChecked());

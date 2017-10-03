@@ -6,6 +6,8 @@
  * name {string} -> user's name
  * email {string} -> user's email
  * location {string} -> last location user queried in the search
+ * barsToAttend {array of string} -> contains id's of bars that user intends to
+ *                                   attend
  */
 const initialState = {
   checkedInDB: false,
@@ -13,6 +15,7 @@ const initialState = {
   name: '',
   email: '',
   location: '',
+  barsToAttend: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -26,6 +29,7 @@ const userReducer = (state = initialState, action) => {
         name: action.payload.name,
         email: action.payload.email,
         location: action.payload.location,
+        barsToAttend: action.payload.barsToAttend,
       };
       break;
 
@@ -36,6 +40,7 @@ const userReducer = (state = initialState, action) => {
         name: '',
         email: '',
         location: '',
+        barsToAttend: [],
       };
       break;
 
@@ -46,6 +51,7 @@ const userReducer = (state = initialState, action) => {
         name: '',
         email: '',
         location: '',
+        barsToAttend: [],
       };
       break;
 
