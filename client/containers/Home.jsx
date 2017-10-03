@@ -11,19 +11,21 @@ import { loadBars } from '../actions/bars-actions';
 
 class Home extends React.Component {
   componentDidMount = () => {
-    this.getBarsData();
+    this.getBarsData(this.props.places === null);
   }
 
-  componentDidUpdate = () => {
-    this.getBarsData();
+  componentDidUpdate = (prevProps) => {
+    const oldLocation = prevProps.location;
+    const newLocation = this.props.location;
+    const places = this.props.places;
+    this.getBarsData(places === null || newLocation !== oldLocation);
   }
 
-  getBarsData = () => {
+  getBarsData = (shouldCheck) => {
     const user = this.props.userLoggedIn;
     const location = this.props.location;
-    const places = this.props.places;
 
-    if (user && location && places === null) {
+    if (user && location && shouldCheck) {
       axios.get(`/api/bars?location=${location}`)
         .then((res) => {
           this.props.loadBars(res.data);
