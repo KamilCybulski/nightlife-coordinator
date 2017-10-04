@@ -79,7 +79,12 @@ class Home extends React.Component {
 
     if (userLoggedIn && location && places) {
       if (places.length === 0) {
-        return <div> Empty list </div>;
+        return (
+          <div className="fullwidth flex-coulmn">
+            <SearchBar />
+            <p> EMPTY LIST!!! </p>
+          </div>
+        );
       }
 
       const barsToAttend = this.props.barsToAttend;
@@ -102,12 +107,23 @@ class Home extends React.Component {
 
     if (!userLoggedIn && places) {
       return (
-        <div>
-          {places.map(p => <p>{p.name}</p>)}
+        <div className="fullwidth flex-column">
+          <SearchBar />
+          {places.map(p => (
+            <BarListItem
+              key={p.id}
+              name={p.name}
+              rating={p.rating}
+              attendants={p.attendants_number || 0}
+              btnLabel={'LABEL'}
+              btnFunc={() => { console.log('button pressed'); }}
+            />
+          ))}
         </div>
       );
     }
 
+    // If user not logged in and places === null
     return <SearchBar />;
   }
 }
