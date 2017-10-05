@@ -115,8 +115,6 @@ class Home extends React.Component {
               name={p.name}
               rating={p.rating}
               attendants={p.attendants_number || 0}
-              btnLabel={'LABEL'}
-              btnFunc={() => { console.log('button pressed'); }}
             />
           ))}
         </div>

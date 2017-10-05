@@ -8,20 +8,27 @@ const BarListItem = ({ name, rating, attendants, btnLabel, btnFunc }) => (
     <p>{name}</p>
     <p>Number of attendants: {attendants}</p>
     <p>{`Rating: ${rating}`}</p>
-    <RaisedButton
-      label={btnLabel}
-      onClick={btnFunc}
-      primary
-    />
+    {!btnLabel && !btnFunc
+      ? null
+      : <RaisedButton
+        label={btnLabel}
+        onClick={btnFunc}
+        primary
+      />}
   </Paper>
 );
+
+BarListItem.defaultProps = {
+  btnLabel: undefined,
+  btnFunc: undefined,
+};
 
 BarListItem.propTypes = {
   name: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   attendants: PropTypes.number.isRequired,
-  btnLabel: PropTypes.string.isRequired,
-  btnFunc: PropTypes.func.isRequired,
+  btnLabel: PropTypes.string,
+  btnFunc: PropTypes.func,
 };
 
 export default BarListItem;
