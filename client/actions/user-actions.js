@@ -48,3 +48,29 @@ export function updateLocation(location) {
     payload: location,
   };
 }
+
+/**
+ * visitBar
+ * @param {string} id Yelp id of a bar that user wants to visit
+ * Update the barsToAttend prop of user substate by adding given id to it.
+ * @returns {object} an action object
+ */
+export function visitBar(id) {
+  return {
+    type: 'VISIT_BAR',
+    payload: id,
+  };
+}
+
+/**
+ * forgoVisitingBar
+ * @param {string} id Yelp id of a bar that user wants to visit
+ * Update the barsToAttend prop of user substate by removing given id from it.
+ * @returns {object} an action object
+ */
+export function forgoVisitingBar(id) {
+  return {
+    type: 'FORGO_BAR',
+    payload: id,
+  };
+}

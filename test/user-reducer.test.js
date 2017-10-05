@@ -1,5 +1,5 @@
 import reducer from '../client/reducers/userReducer';
-
+import { visitBar, forgoVisitingBar } from '../client/actions/user-actions';
 
 describe('LOG_IN action:', () => {
   const action1 = {
@@ -164,3 +164,80 @@ describe('UPDATE_LOCATION action:', () => {
   });
 });
 
+
+describe('VISIT_BAR action:', () => {
+  const stateWithBars = {
+    checkedInDB: true,
+    isLoggedIn: true,
+    name: 'Marek',
+    email: 'xxxxx',
+    location: 'bumretch',
+    barsToAttend: ['bar1-id', 'bar2-id'],
+  };
+
+  const stateNoBars = {
+    checkedInDB: true,
+    isLoggedIn: true,
+    name: 'Marek',
+    email: 'aaaaaa',
+    location: '',
+    barsToAttend: [],
+  };
+
+  const action = visitBar('bar3-id');
+
+  const newStateWithBars = reducer(stateWithBars, action);
+  const newStateNoBars = reducer(stateNoBars, action);
+
+  it('Adds one bar to empty barsToAttend', () => {
+    expect(newStateWithBars).toEqual(expect.objectContaining({
+      checkedInDB: true,
+      isLoggedIn: true,
+      name: 'Marek',
+      email: 'xxxxx',
+      location: 'bumretch',
+    }));
+    expect(newStateWithBars.barsToAttend).toHaveLength(3);
+    expect(newStateWithBars.barsToAttend[2]).toBe('bar3-id');
+  });
+
+  it('Adds one bar to populated barsToAttend', () => {
+    expect(newStateNoBars).toEqual(expect.objectContaining({
+      checkedInDB: true,
+      isLoggedIn: true,
+      name: 'Marek',
+      email: 'aaaaaa',
+      location: '',
+    }));
+    expect(newStateNoBars.barsToAttend).toHaveLength(1);
+    expect(newStateNoBars.barsToAttend[0]).toBe('bar3-id');
+  });
+});
+
+describe('FORGO_BAR action:', () => {
+  const state = {
+    checkedInDB: true,
+    isLoggedIn: true,
+    name: 'Marek',
+    email: 'xxxxx',
+    location: 'bumretch',
+    barsToAttend: ['bar1-id', 'bar2-id'],
+  };
+
+  const action = forgoVisitingBar('bar1-id');
+
+  const newState = reducer(state, action);
+
+  it('Removes given bar from barsToAttend', () => {
+    expect(newState).toEqual(expect.objectContaining({
+      checkedInDB: true,
+      isLoggedIn: true,
+      name: 'Marek',
+      email: 'xxxxx',
+      location: 'bumretch',
+    }));
+    expect(newState.barsToAttend).toHaveLength(1);
+    expect(newState.barsToAttend[0]).toBe('bar2-id');
+    expect(newState.barsToAttend.includes('bar1-id')).toBe(false);
+  });
+});

@@ -62,6 +62,20 @@ const userReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'VISIT_BAR':
+      newState = {
+        ...state,
+        barsToAttend: [...state.barsToAttend, action.payload],
+      };
+      break;
+
+    case 'FORGO_BAR':
+      newState = {
+        ...state,
+        barsToAttend: state.barsToAttend.filter(e => e !== action.payload),
+      };
+      break;
+
     default:
       newState = { ...state };
   }

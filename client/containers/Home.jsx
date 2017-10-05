@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import BarListItem from '../components/BarListItem';
 
 import { loadBars } from '../actions/bars-actions';
+import { visitBar, forgoVisitingBar } from '../actions/user-actions';
 
 
 class Home extends React.Component {
@@ -54,13 +55,50 @@ class Home extends React.Component {
     if (user && location) {
       axios.get(`/api/bars?location=${location}`)
         .then((res) => {
-          this.props.loadBars(res.data);
+          if (res.data.error) {
+            this.props.loadBars([]);
+          } else {
+            this.props.loadBars(res.data);
+          }
         })
         .catch(() => {
           this.props.loadBars([]);
         });
     }
   }
+
+  /**
+   * markToVisit
+   * @param {string} id Yelp ID of a place that user wants to visit
+   * @param {string} name Name of that place
+   * @param {number} rating Rating of that place
+   * Marks a given place as intended to visit by a user. Sends a POST request
+   * to the server and updates a user substate (barsToAttend prop) after
+   * revieving a response
+   * @returns {undefined}
+   */
+  markToVisit = (id, name, rating) => {
+    axios.post('/api/visit', { id, name, rating })
+      .then(() => {
+        this.props.visitBar(id);
+      });
+  };
+
+  /**
+   * unmarkToVisit
+   * @param {string} placeID Yelp ID of a place that user does not want to 
+   *                         visit anymore
+   * Removes a given place from the list of places to visit by a user.
+   * Sends a POST request to the server and removes a given bar
+   * from user substate (barsToAttend prop) after recieving a response.
+   * @returns {undefined}
+   */
+  unmarkToVisit = (placeID) => {
+    axios.post('/api/unmark', { placeID })
+      .then(() => {
+        this.props.forgoVisitingBar(placeID);
+      });
+  };
 
   /**
    * @returns {object} React element
@@ -98,7 +136,9 @@ class Home extends React.Component {
               rating={p.rating}
               attendants={p.attendants_number || 0}
               btnLabel={barsToAttend.includes(p.id) ? 'Resign' : 'Attend'}
-              btnFunc={() => { console.log('button pressed'); }}
+              btnFunc={barsToAttend.includes(p.id)
+                ? () => this.unmarkToVisit(p.id)
+                : () => this.markToVisit(p.id, p.name, p.rating)}
             />
           ))}
         </div>
@@ -136,6 +176,8 @@ Home.propTypes = {
   location: PropTypes.string.isRequired,
   places: PropTypes.arrayOf(PropTypes.object),
   loadBars: PropTypes.func.isRequired,
+  visitBar: PropTypes.func.isRequired,
+  forgoVisitingBar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -148,6 +190,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadBars: (bars) => {
     dispatch(loadBars(bars));
+  },
+  visitBar: (id) => {
+    dispatch(visitBar(id));
+  },
+  forgoVisitingBar: (id) => {
+    dispatch(forgoVisitingBar(id));
   },
 });
 
