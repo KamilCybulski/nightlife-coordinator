@@ -6,7 +6,7 @@ const insertAttendants = (places, attendants) => places.map(place => ({
   id: place.id,
   name: place.name,
   rating: place.rating,
-  attendants_number: attendants[place.id],
+  attendants_number: attendants[place.id] || 0,
 }));
 
 const arrayToObject = arr => arr.reduce((obj, item) =>

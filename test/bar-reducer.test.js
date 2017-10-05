@@ -1,4 +1,5 @@
 import reducer from '../client/reducers/barsReducer';
+import { addAttendant, removeAttendant } from '../client/actions/bars-actions';
 
 describe('LOAD_BARS action:', () => {
   const action = {
@@ -14,6 +15,7 @@ describe('LOAD_BARS action:', () => {
         id: 'xyz-warsaw',
         name: 'xyz',
         rating: 1,
+        attendants_number: 0,
       },
       {
         id: 'abc-warsaw',
@@ -44,6 +46,7 @@ describe('LOAD_BARS action:', () => {
         id: 'xyz-gdynia',
         name: 'xyz',
         rating: 1,
+        attendants_number: 0,
       },
       {
         id: 'abc-gdynia',
@@ -82,6 +85,7 @@ describe('LOAD_BARS action:', () => {
   });
 });
 
+
 describe('CLEAR_BARS action:', () => {
   const action = { type: 'CLEAR_BARS' };
 
@@ -97,6 +101,7 @@ describe('CLEAR_BARS action:', () => {
         id: 'xyz-warsaw',
         name: 'xyz',
         rating: 1,
+        attendants_number: 0,
       },
       {
         id: 'abc-warsaw',
@@ -128,5 +133,77 @@ describe('CLEAR_BARS action:', () => {
   it('If places array is empty, does not change it', () => {
     const newState = reducer(state3, action);
     expect(newState.places).toBe(null);
+  });
+});
+
+
+describe('ADD_ATTENDANT action:', () => {
+  const state = {
+    places: [
+      {
+        id: 'xxx-warsaw',
+        name: 'xxx',
+        rating: 5,
+        attendants_number: 10,
+      },
+      {
+        id: 'xyz-warsaw',
+        name: 'xyz',
+        rating: 1,
+        attendants_number: 0,
+      },
+      {
+        id: 'abc-warsaw',
+        name: 'abc',
+        rating: 3.5,
+        attendants_number: 4,
+      },
+    ],
+  };
+
+  const action = addAttendant(0);
+
+  it('Increases the attendants number in correct bar entry', () => {
+    const newState = reducer(state, action);
+
+    expect(newState.places[0].attendants_number).toBe(11);
+    expect(newState.places[1].attendants_number).toBe(0);
+    expect(newState.places[2].attendants_number).toBe(4);
+  });
+});
+
+
+describe('REMOVE_ATTENDANT action:', () => {
+  const state = {
+    places: [
+      {
+        id: 'xxx-warsaw',
+        name: 'xxx',
+        rating: 5,
+        attendants_number: 10,
+      },
+      {
+        id: 'xyz-warsaw',
+        name: 'xyz',
+        rating: 1,
+        attendants_number: 0,
+      },
+      {
+        id: 'abc-warsaw',
+        name: 'abc',
+        rating: 3.5,
+        attendants_number: 4,
+      },
+    ],
+  };
+
+  const action = removeAttendant(2);
+
+  it('Decreases the attendants number in correct bar entry', () => {
+    const newState = reducer(state, action);
+
+    expect(newState.places[0].attendants_number).toBe(10);
+    expect(newState.places[1].attendants_number).toBe(0);
+    expect(newState.places[2].attendants_number).toBe(3);
   });
 });

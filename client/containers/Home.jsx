@@ -6,7 +6,11 @@ import Loader from '../components/Loader';
 import SearchBar from './SearchBar';
 import BarListItem from '../components/BarListItem';
 
-import { loadBars } from '../actions/bars-actions';
+import {
+  loadBars,
+  addAttendant,
+  removeAttendant,
+} from '../actions/bars-actions';
 import { visitBar, forgoVisitingBar } from '../actions/user-actions';
 
 
@@ -72,15 +76,17 @@ class Home extends React.Component {
    * @param {string} id Yelp ID of a place that user wants to visit
    * @param {string} name Name of that place
    * @param {number} rating Rating of that place
+   * @param {number} index Index of the entry in the bars.places to be affected.
    * Marks a given place as intended to visit by a user. Sends a POST request
-   * to the server and updates a user substate (barsToAttend prop) after
-   * revieving a response
+   * to the server and updates a user substate (barsToAttend prop) and
+   * attendants_number of the relevant bar after recieving a response
    * @returns {undefined}
    */
-  markToVisit = (id, name, rating) => {
+  markToVisit = (id, name, rating, index) => {
     axios.post('/api/visit', { id, name, rating })
       .then(() => {
         this.props.visitBar(id);
+        this.props.addAttendant(index);
       });
   };
 
@@ -88,15 +94,18 @@ class Home extends React.Component {
    * unmarkToVisit
    * @param {string} placeID Yelp ID of a place that user does not want to 
    *                         visit anymore
+   * @param {number} index Index of the entry in the bars.places to be affected.
    * Removes a given place from the list of places to visit by a user.
    * Sends a POST request to the server and removes a given bar
-   * from user substate (barsToAttend prop) after recieving a response.
+   * from user substate (barsToAttend prop) after recieving a response. Also,
+   * decreases an attendans_number of the relevant bar
    * @returns {undefined}
    */
-  unmarkToVisit = (placeID) => {
+  unmarkToVisit = (placeID, index) => {
     axios.post('/api/unmark', { placeID })
       .then(() => {
         this.props.forgoVisitingBar(placeID);
+        this.props.removeAttendant(index);
       });
   };
 
@@ -129,7 +138,7 @@ class Home extends React.Component {
       return (
         <div className="fullwidth flex-column">
           <SearchBar />
-          {places.map(p => (
+          {places.map((p, i) => (
             <BarListItem
               key={p.id}
               name={p.name}
@@ -137,8 +146,8 @@ class Home extends React.Component {
               attendants={p.attendants_number || 0}
               btnLabel={barsToAttend.includes(p.id) ? 'Resign' : 'Attend'}
               btnFunc={barsToAttend.includes(p.id)
-                ? () => this.unmarkToVisit(p.id)
-                : () => this.markToVisit(p.id, p.name, p.rating)}
+                ? () => this.unmarkToVisit(p.id, i)
+                : () => this.markToVisit(p.id, p.name, p.rating, i)}
             />
           ))}
         </div>
@@ -178,6 +187,8 @@ Home.propTypes = {
   loadBars: PropTypes.func.isRequired,
   visitBar: PropTypes.func.isRequired,
   forgoVisitingBar: PropTypes.func.isRequired,
+  addAttendant: PropTypes.func.isRequired,
+  removeAttendant: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -196,6 +207,12 @@ const mapDispatchToProps = dispatch => ({
   },
   forgoVisitingBar: (id) => {
     dispatch(forgoVisitingBar(id));
+  },
+  addAttendant: (index) => {
+    dispatch(addAttendant(index));
+  },
+  removeAttendant: (index) => {
+    dispatch(removeAttendant(index));
   },
 });
 

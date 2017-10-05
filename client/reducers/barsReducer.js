@@ -22,6 +22,36 @@ const barsReducer = (state = initialState, action) => {
       };
       break;
 
+    case 'ADD_ATTENDANT':
+      newState = {
+        places: [
+          ...state.places.slice(0, action.payload),
+          {
+            id: state.places[action.payload].id,
+            name: state.places[action.payload].name,
+            rating: state.places[action.payload].rating,
+            attendants_number: state.places[action.payload].attendants_number + 1,
+          },
+          ...state.places.slice(action.payload + 1),
+        ],
+      };
+      break;
+
+    case 'REMOVE_ATTENDANT':
+      newState = {
+        places: [
+          ...state.places.slice(0, action.payload),
+          {
+            id: state.places[action.payload].id,
+            name: state.places[action.payload].name,
+            rating: state.places[action.payload].rating,
+            attendants_number: state.places[action.payload].attendants_number - 1,
+          },
+          ...state.places.slice(action.payload + 1),
+        ],
+      };
+      break;
+
     default:
       newState = { ...state };
   }
