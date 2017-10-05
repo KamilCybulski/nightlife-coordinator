@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Bar = require('../models/bar');
 
 /**
  * unmarkBar
@@ -10,4 +11,9 @@ const User = require('../models/user');
 module.exports = req => User.updateOne(
   { _id: req.user._id },
   { $pull: { barsToAttend: req.body.placeID } },
-).exec();
+).exec()
+  .then(() => Bar.findOneAndUpdate(
+    { id: req.body.placeID },
+    { $inc: { attendants_number: -1 } },
+  ))
+  .catch(err => Promise.reject(err.message));
