@@ -9,7 +9,9 @@ body {
 ==================================================*/
 $primary-background-color: #00BCD4;
 $primary-text-color: #fff;
+
 $big-font: 20px;
+$medium-font: 16px;
 
 /*==================================================
                       Dimensions
@@ -35,6 +37,10 @@ $big-font: 20px;
   height: 500px;
 }
 
+.height200 {
+  height: 300px;
+}
+
 .height60 {
   height: 60px;
 }
@@ -47,6 +53,9 @@ $big-font: 20px;
   margin-bottom: 20px;
 }
 
+.padding20 {
+  padding: 20px;
+}
 
 
 /*==================================================
@@ -63,6 +72,10 @@ $big-font: 20px;
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.center-text {
+  text-align: center;
 }
 
 
@@ -83,6 +96,12 @@ $big-font: 20px;
 ==================================================*/
 .big-font {
   font-size: $big-font;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.medium-font {
+  font-size: $medium-font;
   font-weight: 700;
   text-transform: uppercase;
 }
