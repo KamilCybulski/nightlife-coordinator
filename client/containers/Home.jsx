@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Loader from '../components/Loader';
 import SearchBar from './SearchBar';
 import BarListItem from '../components/BarListItem';
+import HomeTitle from '../components/HomeTitle';
 
 import {
   loadBars,
@@ -117,19 +118,30 @@ class Home extends React.Component {
 
 
     if (userLoggedIn && !location && places === null) {
-      return <SearchBar />;
+      return (
+        <div>
+          <HomeTitle />
+          <SearchBar />;
+        </div>
+      );
     }
 
     if (userLoggedIn && location && places === null) {
-      return <Loader />;
+      return (
+        <div>
+          <HomeTitle />
+          <Loader />
+        </div>
+      );
     }
 
     if (userLoggedIn && location && places) {
       if (places.length === 0) {
         return (
           <div className="fullwidth flex-coulmn">
+            <HomeTitle />
             <SearchBar />
-            <p> EMPTY LIST!!! </p>
+            <p> Sorry, no results for this location </p>
           </div>
         );
       }
@@ -137,6 +149,7 @@ class Home extends React.Component {
       const barsToAttend = this.props.barsToAttend;
       return (
         <div className="fullwidth flex-column">
+          <HomeTitle />
           <SearchBar />
           {places.map((p, i) => (
             <BarListItem
@@ -157,7 +170,8 @@ class Home extends React.Component {
 
     if (!userLoggedIn && places) {
       return (
-        <div className="fullwidth flex-column">
+        <div className="fullwidth flex-column horizontal-margin-20">
+          <HomeTitle />
           <SearchBar />
           {places.map(p => (
             <BarListItem
@@ -172,7 +186,12 @@ class Home extends React.Component {
     }
 
     // If user not logged in and places === null
-    return <SearchBar />;
+    return (
+      <div>
+        <HomeTitle />
+        <SearchBar />;
+      </div>
+    );
   }
 }
 

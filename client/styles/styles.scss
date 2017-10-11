@@ -10,6 +10,7 @@ body {
 $primary-background-color: #00BCD4;
 $primary-text-color: #fff;
 
+$huge-font: 28px;
 $big-font: 20px;
 $medium-font: 16px;
 
@@ -98,6 +99,14 @@ $medium-font: 16px;
 /*==================================================
                       Fonts
 ==================================================*/
+.huge-font {
+  font-size: $huge-font;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  line-height: 1.5em;
+}
+
 .big-font {
   font-size: $big-font;
   font-weight: 700;
