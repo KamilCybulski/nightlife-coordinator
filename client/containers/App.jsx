@@ -5,6 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { pink500, pink700, white, black } from 'material-ui/styles/colors';
 
 import { logUserIn, markUserAsChecked } from '../actions/user-actions';
 
