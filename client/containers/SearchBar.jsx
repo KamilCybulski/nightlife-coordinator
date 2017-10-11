@@ -22,11 +22,22 @@ class SearchBar extends React.Component {
     };
   }
 
+  /**
+   * searchForBars
+   * Fetches data about bars in the given location (user input) from the 
+   * server and populates state with them. If it's unable to fetch data 
+   * for any reason it sets state.bars.places to an empty array
+   * @returns {undefined}
+   */
   searchForBars = () => {
     const getBarsData = () => {
       axios.get(`/api/bars?location=${this.state.query}`)
         .then((res) => {
-          this.props.loadBars(res.data);
+          if (res.data.error) {
+            this.props.loadBars([]);
+          } else {
+            this.props.loadBars(res.data);
+          }
         })
         .catch(() => {
           this.props.loadBars([]);
