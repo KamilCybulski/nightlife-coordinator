@@ -80,6 +80,13 @@ class Login extends React.Component {
   render() {
     return (
       <div className="fullscreen flex-column">
+        <div
+          className="width256 height60 center-items primary-background-color small-border-radius"
+        >
+          <span className="primary-text-color big-font">
+            Log in form
+          </span>
+        </div>
         <TextField
           hintText="username"
           value={this.state.username}
@@ -92,6 +99,7 @@ class Login extends React.Component {
         />
         {this.state.errMsg}
         <RaisedButton
+          className="width256"
           label="Log in!"
           primary
           onClick={this.sendData}
