@@ -189,7 +189,7 @@ class Home extends React.Component {
     return (
       <div>
         <HomeTitle />
-        <SearchBar />;
+        <SearchBar />
       </div>
     );
   }

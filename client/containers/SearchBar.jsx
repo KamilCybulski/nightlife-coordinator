@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import SearchIcon from 'material-ui/svg-icons/action/search';
 
 import { loadBars } from '../actions/bars-actions';
 import { updateLocation } from '../actions/user-actions';
@@ -56,14 +57,16 @@ class SearchBar extends React.Component {
    */
   render() {
     return (
-      <div className="fullwidth center-items">
+      <div className="fullwidth center-items bottom-margin-50">
         <TextField
           hintText="Location..."
           value={this.state.query}
           onChange={this.handleChange}
         />
         <FlatButton
-          label="Search"
+          style={{ minWidth: '30px' }}
+          primary
+          icon={<SearchIcon />}
           onClick={this.searchForBars}
         />
       </div>
