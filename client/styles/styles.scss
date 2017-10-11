@@ -33,6 +33,10 @@ $medium-font: 16px;
   width: 256px;
 }
 
+.width150 {
+  width: 150px;
+}
+
 .height500 {
   height: 500px;
 }
@@ -104,6 +108,12 @@ $medium-font: 16px;
   font-size: $medium-font;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.undecorated-link {
+  text-decoration: none;
+  font-weight: 700;
+  color: #000;
 }
 
 
