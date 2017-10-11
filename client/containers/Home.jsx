@@ -178,6 +178,7 @@ class Home extends React.Component {
               key={p.id}
               name={p.name}
               rating={p.rating}
+              url={p.url}
               attendants={p.attendants_number || 0}
             />
           ))}
