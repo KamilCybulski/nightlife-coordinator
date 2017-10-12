@@ -83,6 +83,20 @@ $medium-font: 16px;
   align-items: center;
 }
 
+.flex-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-row-end {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .center-text {
   text-align: center;
 }

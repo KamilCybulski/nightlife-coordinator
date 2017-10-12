@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 
 export default () => (
-  <div>
+  <div className="width300 flex-row">
     <FlatButton
       label="Home"
       containerElement={<Link to="/" />}

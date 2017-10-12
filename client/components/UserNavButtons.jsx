@@ -7,9 +7,11 @@ import FlatButton from 'material-ui/FlatButton';
 import LogoutButton from './LogoutButton';
 
 const UserNavButtons = ({ username }) => (
-  <div>
-    <div>
+  <div className="fullwidth flex-row">
+    <div className="width300 center-text">
       Hello {username}!
+    </div>
+    <div className="width300 flex-row-end">
       <FlatButton
         label="Home"
         containerElement={<Link to="/" />}
