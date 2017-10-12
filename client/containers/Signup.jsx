@@ -133,6 +133,7 @@ class Signup extends React.Component {
         />
         <TextField
           hintText="password"
+          type="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
