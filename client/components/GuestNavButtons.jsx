@@ -4,8 +4,17 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default () => (
   <div>
-    <Link to="/"><FlatButton label="Home" /></Link>
-    <Link to="/login"><FlatButton label="Login" /></Link>
-    <Link to="/signup"><FlatButton label="Signup" /></Link>
+    <FlatButton
+      label="Home"
+      containerElement={<Link to="/" />}
+    />
+    <FlatButton
+      label="Login"
+      containerElement={<Link to="/login" />}
+    />
+    <FlatButton
+      label="Signup"
+      containerElement={<Link to="/signup" />}
+    />
   </div>
 );

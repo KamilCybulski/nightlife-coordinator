@@ -10,7 +10,10 @@ const UserNavButtons = ({ username }) => (
   <div>
     <div>
       Hello {username}!
-      <Link to="/"><FlatButton label="Home" /></Link>
+      <FlatButton
+        label="Home"
+        containerElement={<Link to="/" />}
+      />
       <LogoutButton />
     </div>
   </div>
