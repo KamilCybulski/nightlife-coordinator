@@ -8,7 +8,7 @@ const style = {
  * whiteText
  * @param {Component} WrappedComponent React Component to be enhanced
  * Renders a WrappedComponent with a white text
- * @returns {Component} Enhanced React Component 
+ * @returns {Component} Enhanced React Component
  */
 export default function whiteText(WrappedComponent) {
   /**
@@ -20,9 +20,7 @@ export default function whiteText(WrappedComponent) {
     return <WrappedComponent {...props} style={style} />;
   }
 
-  const wrappedComponentName = WrappedComponent.displayName
-    || WrappedComponent.name
-    || 'Component';
+  const wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   WhiteText.displayName = `whiteText(${wrappedComponentName})`;
   return WhiteText;
