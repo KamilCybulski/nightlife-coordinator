@@ -92,7 +92,7 @@ class Login extends React.Component {
    */
   render() {
     return (
-      <div className="fullscreen flex-column">
+      <div className="fullscreen height500 flex-column">
         <div
           className="width256 height60 center-items primary-background-color small-border-radius"
         >
