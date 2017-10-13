@@ -9,6 +9,7 @@ body {
 ==================================================*/
 $primary-background-color: #00BCD4;
 $primary-text-color: #fff;
+$secondary-text-color: #000;
 $warning-color: rgb(255, 64, 129);
 
 $huge-font: 28px;
@@ -75,6 +76,10 @@ $medium-font: 16px;
 
 .top-margin-30 {
   margin-top: 30px;
+}
+
+.top-margin-5 {
+  margin-top: 5px;
 }
 
 .padding20 {
@@ -165,6 +170,11 @@ $medium-font: 16px;
 
 .undecorated {
   text-decoration: none;
+  color: $secondary-text-color;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 

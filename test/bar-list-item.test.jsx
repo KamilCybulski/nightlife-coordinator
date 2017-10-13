@@ -1,6 +1,6 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import { mount } from 'enzyme';
 
 import BarListItem from '../client/components/BarListItem';
@@ -11,6 +11,9 @@ describe('BarListItem', () => {
     rating: 5,
     attendants: 10,
     url: 'www.google.com',
+    address: 'Hoza 10',
+    phone: '666 666 666',
+    imgUrl: 'https://dummyimage.com/mediumrectangle/222222/eeeeee',
     btnLabel: 'Attend',
     btnFunc: jest.fn(),
   };
@@ -20,6 +23,9 @@ describe('BarListItem', () => {
     rating: 5,
     attendants: 1,
     url: 'www.google.com',
+    address: 'Hoza 10',
+    phone: '666 666 666',
+    imgUrl: 'https://dummyimage.com/mediumrectangle/222222/eeeeee',
   };
 
   const noAttendantsProps = {
@@ -27,6 +33,9 @@ describe('BarListItem', () => {
     rating: 5,
     attendants: 0,
     url: 'www.google.com',
+    address: 'Hoza 10',
+    phone: '666 666 666',
+    imgUrl: 'https://dummyimage.com/mediumrectangle/222222/eeeeee',
   };
 
   const userLoggedItem = mount(
@@ -57,19 +66,31 @@ describe('BarListItem', () => {
   });
 
   it('Shows bars rating', () => {
-    expect(userLoggedItem.text()).toEqual(expect.stringMatching('rating is 5.'));
-    expect(userNotLoggedItem.text()).toEqual(expect.stringMatching('rating is 5'));
+    expect(userLoggedItem.text()).toEqual(expect.stringMatching('Rating 5'));
+    expect(userNotLoggedItem.text()).toEqual(expect.stringMatching('Rating 5'));
   });
 
   it('Renders an anchor tag', () => {
     expect(userLoggedItem.find('a')).toHaveLength(1);
   });
 
-  it('Renders a RaisedButton if user is logged in', () => {
-    expect(userLoggedItem.find(RaisedButton)).toHaveLength(1);
+  it('Renders an image', () => {
+    expect(userNotLoggedItem.find('img')).toHaveLength(1);
   });
 
-  it('Does not render RaisedButton if user not logged in', () => {
-    expect(userNotLoggedItem.find(RaisedButton)).toHaveLength(0);
+  it('Displays an address', () => {
+    expect(noAttendantsItem.text()).toEqual(expect.stringMatching('Hoza 10'));
+  });
+
+  it('Displays a phone number', () => {
+    expect(noAttendantsItem.text()).toEqual(expect.stringMatching('666 666 666'));
+  });
+
+  it('Renders a FlatButton if user is logged in', () => {
+    expect(userLoggedItem.find(FlatButton)).toHaveLength(1);
+  });
+
+  it('Does not render FlatButton if user not logged in', () => {
+    expect(userNotLoggedItem.find(FlatButton)).toHaveLength(0);
   });
 });

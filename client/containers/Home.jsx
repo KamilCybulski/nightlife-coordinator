@@ -159,6 +159,8 @@ class Home extends React.Component {
               attendants={p.attendants_number || 0}
               url={p.url}
               imgUrl={p.imgUrl}
+              address={p.address}
+              phone={p.phone}
               btnLabel={barsToAttend.includes(p.id) ? 'Resign' : 'Attend'}
               btnFunc={barsToAttend.includes(p.id)
                 ? () => this.unmarkToVisit(p.id, i)
@@ -180,6 +182,9 @@ class Home extends React.Component {
               name={p.name}
               rating={p.rating}
               url={p.url}
+              imgUrl={p.imgUrl}
+              address={p.address}
+              phone={p.phone}
               attendants={p.attendants_number || 0}
             />
           ))}

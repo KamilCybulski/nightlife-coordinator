@@ -28,7 +28,7 @@ const insertProperText = (attendants) => {
 };
 
 const BarListItem = (props) => {
-  const { name, rating, attendants, url, imgUrl, btnLabel, btnFunc } = props;
+  const { name, rating, attendants, url, imgUrl, btnLabel, btnFunc, phone, address } = props;
 
   return (
     <Card className="horizontal-margin-20 thumbnail">
@@ -38,10 +38,21 @@ const BarListItem = (props) => {
         <img src={imgUrl} alt="Ooops" />
       </CardMedia>
       <CardText>
-        <p>{insertProperText(attendants)}</p>
-        <p><a href={url} className="undecorated-link">
-          Click to see their website
-        </a></p>
+        <p className="top-margin-5">
+          {address}
+        </p>
+        <p className="top-margin-5">
+          {phone}
+        </p>
+        <p className="top-margin-5">
+          {insertProperText(attendants)}
+        </p>
+        <p className="top-margin-5">
+          <a href={url} className="undecorated bold">
+            Click to see their website
+          </a>
+        </p>
+
       </CardText>
       {!btnLabel && !btnFunc
         ? null
@@ -69,6 +80,8 @@ BarListItem.propTypes = {
   attendants: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
   imgUrl: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
   btnLabel: PropTypes.string,
   btnFunc: PropTypes.func,
 };
