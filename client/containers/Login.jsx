@@ -113,7 +113,9 @@ class Login extends React.Component {
           onChange={this.handlePasswordChange}
           onKeyUp={this.handleEnterKeyUp}
         />
-        {this.state.errMsg}
+        <p className="warning-text">
+          {this.state.errMsg}
+        </p>
         <RaisedButton
           className="width256"
           label="Log in!"

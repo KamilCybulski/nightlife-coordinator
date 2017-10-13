@@ -9,6 +9,7 @@ body {
 ==================================================*/
 $primary-background-color: #00BCD4;
 $primary-text-color: #fff;
+$warning-color: rgb(255, 64, 129);
 
 $huge-font: 28px;
 $big-font: 20px;
@@ -119,6 +120,10 @@ $medium-font: 16px;
 
 .primary-text-color {
   color: $primary-text-color;
+}
+
+.warning-text {
+  color: $warning-color;
 }
 
 
