@@ -78,6 +78,19 @@ class Signup extends React.Component {
   }
 
   /**
+   * handleEnterKeyUp
+   * @param {object} e Keyboard event object
+   * Call this.sendData if user presses enter key
+   * @returns {undefined}
+   */
+  handleEnterKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.sendData();
+    }
+  }
+
+  /**
    * sendData
    * Sends data for registering a new user to the server;
    * Updates the redux state (logs user in) after recieving a response
@@ -125,17 +138,20 @@ class Signup extends React.Component {
           hintText="username"
           value={this.state.username}
           onChange={this.handleUsernameChange}
+          onKeyUp={this.handleEnterKeyUp}
         />
         <TextField
           hintText="email"
           value={this.state.email}
           onChange={this.handleEmailChange}
+          onKeyUp={this.handleEnterKeyUp}
         />
         <TextField
           hintText="password"
           type="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}
+          onKeyUp={this.handleEnterKeyUp}
         />
         {this.state.errMsg}
         <RaisedButton
