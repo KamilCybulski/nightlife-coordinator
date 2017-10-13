@@ -46,6 +46,19 @@ class Login extends React.Component {
   }
 
   /**
+   * handleEnterKeyUp
+   * @param {object} e Keyboard event object
+   * Call this.sendData if user presses enter key
+   * @returns {undefined}
+   */
+  handleEnterKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.sendData();
+    }
+  }
+
+  /**
    * sendData
    * Sends data required for authentication to the server
    * @returns {undefined}
@@ -91,12 +104,14 @@ class Login extends React.Component {
           hintText="username"
           value={this.state.username}
           onChange={this.handleUsernameChange}
+          onKeyUp={this.handleEnterKeyUp}
         />
         <TextField
           hintText="password"
           type="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}
+          onKeyUp={this.handleEnterKeyUp}
         />
         {this.state.errMsg}
         <RaisedButton
