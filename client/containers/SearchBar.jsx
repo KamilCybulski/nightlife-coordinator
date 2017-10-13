@@ -63,7 +63,13 @@ class SearchBar extends React.Component {
     this.setState({ query: e.target.value });
   }
 
-  handleKeyUp = (e) => {
+  /**
+   * handleEnterKeyUp
+   * @param {object} e Keyboard event object
+   * Call this.searchForBars if user presses enter key
+   * @returns {undefined}
+   */
+  handleEnterKeyUp = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       this.searchForBars();
@@ -80,7 +86,7 @@ class SearchBar extends React.Component {
           hintText="Location..."
           value={this.state.query}
           onChange={this.handleChange}
-          onKeyUp={this.handleKeyUp}
+          onKeyUp={this.handleEnterKeyUp}
         />
         <FlatButton
           style={{ minWidth: '30px' }}
