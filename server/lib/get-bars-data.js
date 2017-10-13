@@ -7,6 +7,7 @@ const insertAttendants = (places, attendants) => places.map(place => ({
   name: place.name,
   rating: place.rating,
   url: place.url,
+  imgUrl: place.image_url,
   attendants_number: attendants[place.id] || 0,
 }));
 
