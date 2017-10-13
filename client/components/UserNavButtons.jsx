@@ -8,7 +8,7 @@ import LogoutButton from './LogoutButton';
 
 const UserNavButtons = ({ username }) => (
   <div className="fullwidth flex-row">
-    <div className="width300 center-text primary-text-color">
+    <div className="width300 center-text primary-text-color big-font">
       Hello {username}!
     </div>
     <div className="width300 flex-row-end">
