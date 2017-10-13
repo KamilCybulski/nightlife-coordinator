@@ -27,9 +27,7 @@ const barsReducer = (state = initialState, action) => {
         places: [
           ...state.places.slice(0, action.payload),
           {
-            id: state.places[action.payload].id,
-            name: state.places[action.payload].name,
-            rating: state.places[action.payload].rating,
+            ...state.places[action.payload],
             attendants_number: state.places[action.payload].attendants_number + 1,
           },
           ...state.places.slice(action.payload + 1),
@@ -42,9 +40,7 @@ const barsReducer = (state = initialState, action) => {
         places: [
           ...state.places.slice(0, action.payload),
           {
-            id: state.places[action.payload].id,
-            name: state.places[action.payload].name,
-            rating: state.places[action.payload].rating,
+            ...state.places[action.payload],
             attendants_number: state.places[action.payload].attendants_number - 1,
           },
           ...state.places.slice(action.payload + 1),
