@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import {
+  Card,
+  CardActions,
+  CardMedia,
+  CardTitle,
+  CardText } from 'material-ui/Card';
 
 /**
  * insertProperText
@@ -22,33 +27,40 @@ const insertProperText = (attendants) => {
   }
 };
 
-const BarListItem = ({ name, rating, attendants, btnLabel, btnFunc, url }) => (
-  <Paper
-    zDepth={2}
-    className="width300 horizontal-margin-20 padding20 height200 flex-column"
-  >
-    <h3 className="center-text medium-font padding20">
-      {name}
-    </h3>
-    <p>This place&#39;s rating is {rating}.</p>
-    <p>{insertProperText(attendants)}</p>
-    <p><a href={url} className="undecorated-link">
-      See their website
-    </a></p>
-    {!btnLabel && !btnFunc
-      ? null
-      : <RaisedButton
-        className="width150"
-        label={btnLabel}
-        onClick={btnFunc}
-        primary
-      />}
-  </Paper>
-);
+const BarListItem = (props) => {
+  const { name, rating, attendants, url, imgUrl, btnLabel, btnFunc } = props;
+
+  return (
+    <Card className="horizontal-margin-20 thumbnail">
+      <CardMedia
+        overlay={<CardTitle title={name} subtitle={`Rating ${rating}`} />}
+      >
+        <img src={imgUrl} alt="Ooops" />
+      </CardMedia>
+      <CardText>
+        <p>{insertProperText(attendants)}</p>
+        <p><a href={url} className="undecorated-link">
+          Click to see their website
+        </a></p>
+      </CardText>
+      {!btnLabel && !btnFunc
+        ? null
+        : <CardActions>
+          <FlatButton
+            primary
+            label={btnLabel}
+            onClick={btnFunc}
+          />
+        </CardActions>
+      }
+    </Card>
+  );
+};
 
 BarListItem.defaultProps = {
   btnLabel: undefined,
   btnFunc: undefined,
+  imgUrl: 'http://thechurchontheway.org/wp-content/uploads/2016/05/placeholder1.png',
 };
 
 BarListItem.propTypes = {
@@ -56,6 +68,7 @@ BarListItem.propTypes = {
   rating: PropTypes.number.isRequired,
   attendants: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string.isRequired,
   btnLabel: PropTypes.string,
   btnFunc: PropTypes.func,
 };

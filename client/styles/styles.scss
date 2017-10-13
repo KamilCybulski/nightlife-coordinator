@@ -51,6 +51,12 @@ $medium-font: 16px;
   height: 60px;
 }
 
+.thumbnail {
+  @media screen and (min-width: 700px) {
+    width: 700px;
+  }
+}
+
 /*==================================================
                 Margins & Paddings
 ==================================================*/
@@ -96,6 +102,13 @@ $medium-font: 16px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  align-items: center;
+}
+
+.flex-row-sides {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -150,10 +163,8 @@ $medium-font: 16px;
   text-transform: uppercase;
 }
 
-.undecorated-link {
+.undecorated {
   text-decoration: none;
-  font-weight: 700;
-  color: #000;
 }
 
 

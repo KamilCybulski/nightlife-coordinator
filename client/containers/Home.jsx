@@ -158,6 +158,7 @@ class Home extends React.Component {
               rating={p.rating}
               attendants={p.attendants_number || 0}
               url={p.url}
+              imgUrl={p.imgUrl}
               btnLabel={barsToAttend.includes(p.id) ? 'Resign' : 'Attend'}
               btnFunc={barsToAttend.includes(p.id)
                 ? () => this.unmarkToVisit(p.id, i)
