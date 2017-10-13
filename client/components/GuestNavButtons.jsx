@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import FlatWhiteButton from './FlatWhiteButton';
 
 export default () => (
   <div className="width300 flex-row">
-    <FlatButton
+    <FlatWhiteButton
       label="Home"
       containerElement={<Link to="/" />}
     />
-    <FlatButton
+    <FlatWhiteButton
       label="Login"
       containerElement={<Link to="/login" />}
     />
-    <FlatButton
+    <FlatWhiteButton
       label="Signup"
       containerElement={<Link to="/signup" />}
     />

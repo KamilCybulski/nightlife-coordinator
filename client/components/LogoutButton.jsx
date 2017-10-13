@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
+import FlatWhiteButton from './FlatWhiteButton';
 
 import { logUserOut } from '../actions/user-actions';
 import { clearBars } from '../actions/bars-actions';
@@ -18,7 +18,7 @@ const LogoutButton = ({ logOut, clearPlaces }) => {
       });
 
   return (
-    <FlatButton
+    <FlatWhiteButton
       label="Log out"
       onClick={logout}
     />
