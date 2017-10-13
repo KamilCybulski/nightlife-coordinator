@@ -1,9 +1,14 @@
 import React from 'react';
 
 const HomeTitle = () => (
-  <h1 className="huge-font padding20 horizontal-margin-20 center-text">
-    Some really cool title here.
-  </h1>
+  <div className="top-margin-30">
+    <h1 className="big-font padding20 center-text">
+      Going out?
+    </h1>
+    <h2 className="center-text bottom-margin-50">
+      Check out some cool places in your area!
+    </h2>
+  </div>
 );
 
 export default HomeTitle;
