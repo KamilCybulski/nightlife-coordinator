@@ -126,14 +126,10 @@ class Signup extends React.Component {
    */
   render() {
     return (
-      <div className="fullwidth height500 flex-column">
-        <div
-          className="width256 height60 center-items primary-background-color small-border-radius"
-        >
-          <span className="primary-text-color big-font">
-            Sign up form
-          </span>
-        </div>
+      <div className="fullwidth signup-form-container flex-column">
+        <span className="form-title">
+          Sign up with username and email here
+        </span>
         <TextField
           hintText="username"
           value={this.state.username}

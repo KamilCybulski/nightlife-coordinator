@@ -92,14 +92,10 @@ class Login extends React.Component {
    */
   render() {
     return (
-      <div className="fullscreen height500 flex-column">
-        <div
-          className="width256 height60 center-items primary-background-color small-border-radius"
-        >
-          <span className="primary-text-color big-font">
-            Log in form
-          </span>
-        </div>
+      <div className="fullscreen login-form-container flex-column">
+        <span className="form-title">
+          Log in with your username and password
+        </span>
         <TextField
           hintText="username"
           value={this.state.username}

@@ -184,3 +184,25 @@ $medium-font: 16px;
 .small-border-radius {
   border-radius: 2px;
 }
+
+
+/*==================================================
+                      Forms
+==================================================*/
+.form-title {
+  text-align: center;
+  width: 70%;
+  min-width: 300px;
+  max-width: 450px;
+  line-height: 1.6em;
+}
+
+.signup-form-container {
+  height: 400px;
+  margin-top: 30px;
+}
+
+.login-form-container {
+  height: 300px;
+  margin-top: 30px;
+}
