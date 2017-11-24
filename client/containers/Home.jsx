@@ -182,7 +182,7 @@ class Home extends React.Component {
               name={p.name}
               rating={p.rating}
               url={p.url}
-              imgUrl={p.imgUrl}
+              imgUrl={p.imgUrl || undefined}
               address={p.address}
               phone={p.phone}
               attendants={p.attendants_number || 0}

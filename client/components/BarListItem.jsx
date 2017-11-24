@@ -35,7 +35,7 @@ const BarListItem = (props) => {
       <CardMedia
         overlay={<CardTitle title={name} subtitle={`Rating ${rating}`} />}
       >
-        <img src={imgUrl} alt="Ooops" />
+        <img src={imgUrl} alt="" />
       </CardMedia>
       <CardText>
         <p className="top-margin-5">
@@ -69,6 +69,8 @@ const BarListItem = (props) => {
 };
 
 BarListItem.defaultProps = {
+  phone: 'Phone unknown',
+  address: 'Address unknown',
   btnLabel: undefined,
   btnFunc: undefined,
   imgUrl: 'http://thechurchontheway.org/wp-content/uploads/2016/05/placeholder1.png',
@@ -79,9 +81,9 @@ BarListItem.propTypes = {
   rating: PropTypes.number.isRequired,
   attendants: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
-  imgUrl: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string,
+  phone: PropTypes.string,
+  address: PropTypes.string,
   btnLabel: PropTypes.string,
   btnFunc: PropTypes.func,
 };
