@@ -172,6 +172,16 @@ class Home extends React.Component {
     }
 
     if (!userLoggedIn && places) {
+      if (places.length === 0) {
+        return (
+          <div className="fullwidth flex-column">
+            <HomeTitle />
+            <SearchBar />
+            <p> Sorry, no results for this location </p>
+          </div>
+        );
+      }
+
       return (
         <div className="fullwidth flex-column horizontal-margin-20">
           <HomeTitle />
